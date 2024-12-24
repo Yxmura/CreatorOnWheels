@@ -1,0 +1,19 @@
+{
+  "name": "creatoronwheels",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "build": "npx tailwindcss -i ./src/input.css -o ./build/css/gen/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-motion": "^1.0.0"
+  },
+  "dependencies": {
+    "node-waves": "^0.7.6"
+  }
+}

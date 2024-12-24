@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="sm:scroll-smooth" data-theme="light">
+<head>
+    <script>
+        // Set the initial theme based on local storage or system preference
+        if (localStorage.getItem('dark-mode') === 'true' || (!('dark-mode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.querySelector('html').classList.add('dark');
+        } else {
+            document.querySelector('html').classList.remove('dark');
+        }
+
+        // Function to toggle the theme
+        function toggleTheme() {
+            const isDarkMode = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('dark-mode', isDarkMode); // Save theme preference
+        }
+
+        // Dropdown toggle function for both buttons
+        function toggleDropdown(dropdownId) {
+            // Find all dropdowns and close them first
+            const allDropdowns = document.querySelectorAll('.dropdown-content');
+            allDropdowns.forEach(dropdown => {
+                if (dropdown.id !== dropdownId) {
+                    dropdown.classList.add('hidden', 'opacity-0', 'scale-95');
+                    dropdown.classList.remove('opacity-100', 'scale-100');
+                }
+            });
+
+            // Toggle the clicked dropdown
+            const dropdown = document.getElementById(dropdownId);
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden', 'opacity-0', 'scale-95');
+                dropdown.classList.add('opacity-100', 'scale-100');
+            } else {
+                dropdown.classList.add('hidden', 'opacity-0', 'scale-95');
+                dropdown.classList.remove('opacity-100', 'scale-100');
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/COW.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="./css/gen/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Creator On Wheels</title>
+</head>
+<body class="bg-white dark:bg-gray-900">
+    <header class="bg-white dark:bg-gray-800 shadow-lg fixed w-[calc(100%-2rem)] top-4 left-4 right-4 mx-auto z-50 transition-colors duration-300 rounded-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            
+            <!-- Theme Changer Icon -->
+            <div class="absolute left-4 flex items-center border-2 rounded-xl border-secondary">
+                <input id="lightSwitch" type="checkbox" class="light-switch sr-only" onclick="toggleTheme()" />
+                <label for="lightSwitch" class="relative cursor-pointer p-2">
+                    <svg class="dark:hidden" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fill-slate-600" d="M7 0h2v2H7zM12.88 1.637l1.414 1.415-1.415 1.413-1.413-1.414zM14 7h2v2h-2zM12.95 14.433l-1.414-1.413 1.413-1.415 1.415 1.414zM7 14h2v2H7zM2.98 14.364l-1.413-1.415 1.414-1.414 1.414 1.415zM0 7h2v2H0zM3.05 1.706 4.463 3.12 3.05 4.535 1.636 3.12z" />
+                        <path class="fill-slate-800" d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z" />
+                    </svg>
+                    <svg class="hidden dark:block" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fill-slate-400" d="M6.2 1C3.2 1.8 1 4.6 1 7.9 1 11.8 4.2 15 8.1 15c3.3 0 6-2.2 6.9-5.2C9.7 11.2 4.8 6.3 6.2 1Z" />
+                        <path class="fill-slate-500" d="M12.5 5a.625.625 0 0 1-.625-.625 1.252 1.252 0 0 0-1.25-1.25.625.625 0 1 1 0-1.25 1.252 1.252 0 0 0 1.25-1.25.625.625 0 1 1 1.25 0c.001.69.56 1.249 1.25 1.25a.625.625 0 1 1 0 1.25c-.69.001-1.249.56-1.25 1.25A.625.625 0 0 1 12.5 5Z" />
+                    </svg>
+                    <span class="sr-only">Switch to light/dark mode</span>
+                </label>
+            </div>
+
+            <!-- Center Section -->
+            <div class="flex-shrink-0 flex items-center">
+                <img class="h-8 w-auto" src="./assets/COW.png" alt="Logo">
+                <a href="./index.html" class="ml-2 text-xl font-bold text-black dark:text-primary">Creator On Wheels</a>
+            </div>
+
+            <!-- Right Section with spacing and further right positioning -->
+            <div class="flex space-x-6 ml-auto">
+                <!-- Dropdown Button for Resources -->
+                <div class="relative dropdown">
+                    <button 
+                        onclick="toggleDropdown('1Dropdown')" 
+                        data-dropdown="1Dropdown" 
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0"
+                        aria-expanded="false"
+                    >
+                        <span>Resources</span>
+                        <svg 
+                            class="dropdown-arrow transition-transform duration-300 ease-in-out transform" 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            height="24px" 
+                            viewBox="0 -960 960 960" 
+                            width="24px" 
+                            fill="#e8eaed"
+                        >
+                            <path d="M480-360 280-560h400L480-360Z"/>
+                        </svg>
+                    </button>
+                    <div id="1Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="features" aria-orientation="vertical">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Thumbnail Assets</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">SFX Library</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Audio Library</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Font Library</a>
+                        </div>
+                    </div>                    
+                </div>
+
+                <!-- Dropdown Button for Links -->
+                <div class="relative dropdown">
+                    <button onclick="toggleDropdown('2Dropdown')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0" aria-expanded="false">
+                        <span>Links</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-360 280-560h400L480-360Z"/></svg>
+                    </button>
+                    <div id="2Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="resources" aria-orientation="vertical">
+                            <a href="https://toniakendrick.com/content-creation-for-beginners/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Creator Article</a>
+                            <a href="./discords.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Discord Servers</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Useful Videos</a>
+                            <a href="https://discord.gg/QehxPXP4jQ" target="_blank" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Copyright Checker</a>
+                        </div>                      
+                    </div>
+                </div>
+
+                <!-- Dropdown Button for Other -->
+                <div class="relative dropdown">
+                    <button onclick="toggleDropdown('3Dropdown')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0" aria-expanded="false">
+                        <span>Other</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-360 280-560h400L480-360Z"/></svg>
+                    </button>
+                    <div id="3Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="contact" aria-orientation="vertical">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Other Assets</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dropdown Button for Contact -->
+                <div class="relative dropdown">
+                    <button onclick="toggleDropdown('4Dropdown')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0" aria-expanded="false">
+                        <span>Contact</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-360 280-560h400L480-360Z"/></svg>
+                    </button>
+                    <div id="4Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="support" aria-orientation="vertical">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Feedback</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Report A Bug</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Contact us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center">
+            <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-950">Useful Content Creation Discord Servers</h1>
+            <p class="text-white text-lg text-center pt-10 dark:text-gray-900 font-semibold">Servers regarding all topics within content creation: unlock more assets, tools and a helpful community</p>
+        </div>
+        <div class="bg-primary dark:bg-black pt-5 pb-5 align-middle items-center space-x-6 px-5"> <!-- thumbnail section -->
+            <div>
+                <h2 class="text-center text-black dark:text-primary text-4xl font-bold">Thumbnails</h2>
+                <p class="pb-3 text-center pt-3 dark:text-gray-300 text-black">the best tutorials to make the most stunning thumbnails</p>
+                <div data-key="Thumbnail COW" class="ft" id="ft94aqas7">
+                </div>
+                <script src="https://cdn.fouita.com/widgets/0x1d5770.js"></script>
+            </div>
+            <div class="pt-5">
+                <h2 class="text-center text-black dark:text-primary text-4xl font-bold">Editing</h2>
+                <p class="pb-3 text-center pt-3 dark:text-gray-300 text-black">the best tutorials to make the most stunning thumbnails</p>
+                <div data-key="Editing COW" class="ft pb-2" id="ft12f6jy8">
+                </div>
+                <script src="https://cdn.fouita.com/widgets/0x1d5e85.js"></script>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
+        <p class="pt-5">Website made by <u>Yamura</u><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
+    </footer>
+    <script src="./scripts.js"></script>
+</body>
+</html>

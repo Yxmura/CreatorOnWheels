@@ -1,0 +1,9 @@
+[build]
+  publish = "build"
+  command = "npx tailwindcss -i ./src/input.css -o ./build/css/styles.css --minify" # Only needed if you're building TailwindCSS
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" class="sm:scroll-smooth" data-theme="light">
+<head>
+    <script>
+        // Set the initial theme based on local storage or system preference
+        if (localStorage.getItem('dark-mode') === 'true' || (!('dark-mode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.querySelector('html').classList.add('dark');
+        } else {
+            document.querySelector('html').classList.remove('dark');
+        }
+
+        // Function to toggle the theme
+        function toggleTheme() {
+            const isDarkMode = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('dark-mode', isDarkMode); // Save theme preference
+        }
+
+        // Dropdown toggle function for both buttons
+        function toggleDropdown(dropdownId) {
+            // Find all dropdowns and close them first
+            const allDropdowns = document.querySelectorAll('.dropdown-content');
+            allDropdowns.forEach(dropdown => {
+                if (dropdown.id !== dropdownId) {
+                    dropdown.classList.add('hidden', 'opacity-0', 'scale-95');
+                    dropdown.classList.remove('opacity-100', 'scale-100');
+                }
+            });
+
+            // Toggle the clicked dropdown
+            const dropdown = document.getElementById(dropdownId);
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden', 'opacity-0', 'scale-95');
+                dropdown.classList.add('opacity-100', 'scale-100');
+            } else {
+                dropdown.classList.add('hidden', 'opacity-0', 'scale-95');
+                dropdown.classList.remove('opacity-100', 'scale-100');
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/COW.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="./css/gen/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Creator On Wheels</title>
+</head>
+<body class="bg-white dark:bg-gray-900">
+    <header class="bg-white dark:bg-gray-800 shadow-lg fixed w-[calc(100%-2rem)] top-4 left-4 right-4 mx-auto z-50 transition-colors duration-300 rounded-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            
+            <!-- Theme Changer Icon -->
+            <div class="absolute left-4 flex items-center border-2 rounded-xl border-secondary">
+                <input id="lightSwitch" type="checkbox" class="light-switch sr-only" onclick="toggleTheme()" />
+                <label for="lightSwitch" class="relative cursor-pointer p-2">
+                    <svg class="dark:hidden" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fill-slate-600" d="M7 0h2v2H7zM12.88 1.637l1.414 1.415-1.415 1.413-1.413-1.414zM14 7h2v2h-2zM12.95 14.433l-1.414-1.413 1.413-1.415 1.415 1.414zM7 14h2v2H7zM2.98 14.364l-1.413-1.415 1.414-1.414 1.414 1.415zM0 7h2v2H0zM3.05 1.706 4.463 3.12 3.05 4.535 1.636 3.12z" />
+                        <path class="fill-slate-800" d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z" />
+                    </svg>
+                    <svg class="hidden dark:block" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fill-slate-400" d="M6.2 1C3.2 1.8 1 4.6 1 7.9 1 11.8 4.2 15 8.1 15c3.3 0 6-2.2 6.9-5.2C9.7 11.2 4.8 6.3 6.2 1Z" />
+                        <path class="fill-slate-500" d="M12.5 5a.625.625 0 0 1-.625-.625 1.252 1.252 0 0 0-1.25-1.25.625.625 0 1 1 0-1.25 1.252 1.252 0 0 0 1.25-1.25.625.625 0 1 1 1.25 0c.001.69.56 1.249 1.25 1.25a.625.625 0 1 1 0 1.25c-.69.001-1.249.56-1.25 1.25A.625.625 0 0 1 12.5 5Z" />
+                    </svg>
+                    <span class="sr-only">Switch to light/dark mode</span>
+                </label>
+            </div>
+
+            <!-- Center Section -->
+            <div class="flex-shrink-0 flex items-center">
+                <img class="h-8 w-auto" src="./assets/COW.png" alt="Logo">
+                <a href="./index.html" class="ml-2 text-xl font-bold text-black dark:text-primary">Creator On Wheels</a>
+            </div>
+
+            <!-- Right Section with spacing and further right positioning -->
+            <div class="flex space-x-6 ml-auto">
+                <!-- Dropdown Button for Resources -->
+                <div class="relative dropdown">
+                    <button 
+                        onclick="toggleDropdown('1Dropdown')" 
+                        data-dropdown="1Dropdown" 
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0"
+                        aria-expanded="false"
+                    >
+                        <span>Resources</span>
+                        <svg 
+                            class="dropdown-arrow transition-transform duration-300 ease-in-out transform" 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            height="24px" 
+                            viewBox="0 -960 960 960" 
+                            width="24px" 
+                            fill="#e8eaed"
+                        >
+                            <path d="M480-360 280-560h400L480-360Z"/>
+                        </svg>
+                    </button>
+                    <div id="1Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="features" aria-orientation="vertical">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Thumbnail Assets</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">SFX Library</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Audio Library</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Font Library</a>
+                        </div>
+                    </div>                    
+                </div>
+
+                <!-- Dropdown Button for Links -->
+                <div class="relative dropdown">
+                    <button onclick="toggleDropdown('2Dropdown')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0" aria-expanded="false">
+                        <span>Links</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-360 280-560h400L480-360Z"/></svg>
+                    </button>
+                    <div id="2Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="resources" aria-orientation="vertical">
+                            <a href="https://toniakendrick.com/content-creation-for-beginners/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Creator Article</a>
+                            <a href="./discords.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Discord Servers</a>
+                            <a href="./videos.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Useful Videos</a>
+                            <a href="https://discord.gg/QehxPXP4jQ" target="_blank" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Copyright Checker</a>
+                        </div>     
+                    </div>
+                </div>
+
+                <!-- Dropdown Button for Other -->
+                <div class="relative dropdown">
+                    <button onclick="toggleDropdown('3Dropdown')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0" aria-expanded="false">
+                        <span>Other</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-360 280-560h400L480-360Z"/></svg>
+                    </button>
+                    <div id="3Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="contact" aria-orientation="vertical">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Other Assets</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dropdown Button for Contact -->
+                <div class="relative dropdown">
+                    <button onclick="toggleDropdown('4Dropdown')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-0" aria-expanded="false">
+                        <span>Contact</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-360 280-560h400L480-360Z"/></svg>
+                    </button>
+                    <div id="4Dropdown" class="dropdown-content hidden opacity-0 scale-95 transition-all duration-200 transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="support" aria-orientation="vertical">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Feedback</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Report A Bug</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem">Contact us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center"> <!-- Blue CTA Banner -->
+          <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-950">Unleash Your Creativity</h1>
+          <p class="text-white text-lg text-center pt-10 dark:text-gray-900 font-semibold">Access thousands of free, high-quality assets for your content creation needs</p>
+          <button onclick="window.location.href='/get-started';" class="motion-scale-in-[0.5] motion-translate-x-in-[-25%] motion-translate-y-in-[25%] motion-opacity-in-[0%] motion-rotate-in-[-10deg] motion-blur-in-[5px] motion-duration-[0.35s] motion-duration-[0.53s]/scale motion-duration-[0.53s]/translate motion-duration-[0.63s]/rotate group mt-8 relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-neutral-300 opacity-75 px-6 font-medium text-neutral-900 transition hover:scale-110"><span>Get Started - It's free</span><div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]"><div class="relative h-full w-8 bg-white/20"></div></div></button>
+        </div>
+        <div class="bg-primary dark:bg-black pt-5 pb-5 align-middle items-center space-x-6 px-5">
+          <div class="flex flex-wrap gap-5 justify-center p-5">
+            <!-- Card music -->
+            <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3" height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M400-120q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T480-418v-422h240v160H560v400q0 66-47 113t-113 47Z"/></svg>
+              <h3 class="text-lg font-semibold dark:text-primary">Music</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">Royalty-free music assets for your projects.</p>
+            </div>
+        
+            <!-- Card fonts -->
+            <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3" height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M280-160v-520H80v-120h520v120H400v520H280Zm360 0v-320H520v-120h360v120H760v320H640Z"/></svg>
+              <h3 class="text-lg font-semibold dark:text-primary">Fonts</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">Stylish fonts to enhance your designs.</p>
+            </div>
+        
+            <!-- Card sfx -->
+            <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3" height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z"/></svg>
+              <h3 class="text-lg font-semibold dark:text-primary">SFX</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">High-quality sound effects for all needs.</p>
+            </div>
+        
+            <!-- Card tn assets -->
+            <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3" height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"/></svg>
+              <h3 class="text-lg font-semibold dark:text-primary">Thumbnail Assets</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">Templates and assets for stunning thumbnails.</p>
+            </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
+        <p class="pt-5">Website made by <u>Yamura</u><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
+    </footer>
+    <script src="./scripts.js"></script>
+</body>
+</html>
