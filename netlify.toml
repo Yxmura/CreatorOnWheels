@@ -1,6 +1,6 @@
 [build]
   publish = "build"
-  command = "npx tailwindcss -i ./src/input.css -o ./build/css/styles.css --minify" # Only needed if you're building TailwindCSS
+  command = "npx tailwindcss -i ./src/input.css -o ./build/css//gen/output.css --minify" # Only needed if you need to build TailwindCSS
 
 [[redirects]]
   from = "/*"
