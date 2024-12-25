@@ -23,8 +23,6 @@ Yes, join our Discord server to get help.
 
 ```
 CreatorOnWheels_v2
-├─ .gitattributes
-├─ .gitignore
 ├─ build
 │  ├─ assets
 │  │  ├─ COW.ico
@@ -37,6 +35,8 @@ CreatorOnWheels_v2
 │  │  └─ thumbnail.png
 │  ├─ assets.html
 │  ├─ css
+│  │  ├─ gen
+│  │  │  └─ output.css
 │  │  └─ styles.css
 │  ├─ data
 │  │  └─ assets.js

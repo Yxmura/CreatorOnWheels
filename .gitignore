@@ -23,6 +23,9 @@ yarn-error.log*
 # Editor directories and files
 .vscode
 .vercel
+.git
+.git/
+git/
 
 # Local Netlify folder
 .netlify
