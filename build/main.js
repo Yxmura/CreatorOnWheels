@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createImageCard(asset) {
         return `
-            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02]">
+            <div class="bg-white dark:bg-black rounded-lg text-gray-500 shadow-md overflow-hidden transition-transform hover:scale-[1.02]">
                 <img src="${asset.url}" alt="${asset.title}" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h3 class="text-lg font-semibold mb-2">${asset.title}</h3>
-                    <a href="${asset.url}" target="_blank" Download class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    <a href="${asset.url}" target="_blank" Download class="inline-block bg-blue-500 dark:text-gray-300 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                         Download
                     </a>
                 </div>
