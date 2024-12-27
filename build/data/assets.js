@@ -3,7 +3,7 @@ const assets = [
     {
         title: "Forest Background",
         tags: "Woods",
-        type: "thumbnail",
+        type: "image",
         url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
     },
     {
