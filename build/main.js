@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const lightSwitch = document.getElementById('lightSwitch');
+
+    // Apply saved theme from localStorage
+    if (localStorage.getItem('dark-mode') === 'true') {
+        document.documentElement.classList.add('dark');
+        lightSwitch.checked = true;
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    // Add event listener for theme toggling
+    lightSwitch.addEventListener('change', () => {
+        const isDark = lightSwitch.checked;
+        document.documentElement.classList.toggle('dark', isDark);
+        localStorage.setItem('dark-mode', isDark);
+    });
     const assetGrid = document.getElementById('assetGrid');
     const searchInput = document.getElementById('searchInput');
     const tabButtons = document.querySelectorAll('.tab-button');
@@ -50,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-[#9b87f5] text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -66,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-[#9b87f5] text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -92,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-[#9b87f5] text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -101,14 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createFontCard(asset) {
+        // Create a unique font-family name using the asset title
+        const fontFamily = `font-${asset.title.replace(/\s+/g, '-')}`;
+    
+        // Dynamically inject the @font-face CSS rule
+        const styleElement = document.createElement('style');
+        styleElement.textContent = `
+            @font-face {
+                font-family: '${fontFamily}';
+                src: url('${asset.url}');
+            }
+        `;
+        document.head.appendChild(styleElement);
+    
+        // Return the font card HTML with the custom font applied
         return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[200px] flex flex-col">
                 <div class="h-48 bg-gradient-to-br from-[#9b87f5] to-[#8a74f4] flex items-center justify-center p-4">
-                    <span class="text-4xl text-white">Aa Bb Cc</span>
+                    <span class="text-4xl text-white" style="font-family: '${fontFamily}';">${asset.title}</span>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-[#9b87f5] text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
