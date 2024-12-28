@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fonts: []
     };
 
-    const githubApiUrl = "https://api.github.com/repos/Yamura3/assets/contents/";
+    const githubApiUrl = "https://api.github.com/repos/Yxmura/assets/contents/";
 
     async function fetchAssets(category) {
         try {
