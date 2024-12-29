@@ -117,7 +117,7 @@ input[type="text"] {
       <div class="loader"></div>
         <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center">
             <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-950">Reliable YouTube downloader</h1>
-            <p class="text-white text-lg text-center pt-5 dark:text-gray-900 font-semibold">Download high quality YouTube video thumbnails virus free</p>
+            <p class="text-white text-lg text-center pt-5 dark:text-gray-900 font-semibold">Download high quality YouTube videos and thumbnails virus free</p>
         </div>
         <div class="container mx-auto px-4 pb-10 pt-10">
             <form class="max-w-md mx-auto">   
@@ -136,9 +136,87 @@ input[type="text"] {
             <div id="thumbnailContainer" class="flex justify-center items-center text-center w-full"></div>
             <div id="thumbnailLinkBelow"></div>
             </div>
-          </div>        
+          </div>
+          <div class="bg-gradient-to-r from-left to-right min-h-screen flex items-center justify-center relative">
+            <div id="hd" class="w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden relative">    
+              <div class="p-6">
+                <div class="text-secondary py-3 rounded text-center mb-6">
+                  <h2 class="text-3xl font-bold">YouTube Video Downloader</h5>
+                </div>
+                <div class="p-8">
+                    <form class="space-y-6">
+                      <!-- YouTube Link Input -->
+                      <div>
+                        <label for="link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter YT Video Link:</label>
+                        <div class="relative mb-6">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                              <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 72 72">
+                                <g>
+                                  <g>
+                                    <path d="M18.321,69.07c-2.874,0-5.775-0.845-8.31-2.604l-0.534-0.371c-6.614-4.593-8.259-13.712-3.666-20.326l13.931-18.588
+                                      c2.183-3.146,5.522-5.292,9.361-5.984c3.839-0.694,7.717,0.152,10.921,2.377l0.534,0.37c2.72,1.888,4.735,4.676,5.675,7.85
+                                      c0.313,1.059-0.291,2.172-1.351,2.485c-1.058,0.311-2.171-0.29-2.485-1.351c-0.691-2.337-2.116-4.308-4.119-5.698l-0.534-0.37
+                                      c-2.328-1.617-5.146-2.231-7.931-1.727c-2.787,0.503-5.212,2.061-6.828,4.388L9.055,48.108
+                                      c-3.293,4.744-2.099,11.365,2.704,14.701l0.534,0.371c4.801,3.334,11.423,2.142,14.759-2.66l4.256-6.126
+                                      c0.631-0.905,1.875-1.129,2.784-0.501c0.906,0.631,1.131,1.877,0.501,2.784l-4.256,6.125C27.504,66.882,22.948,69.07,18.321,69.07
+                                      z"/>
+                                  </g>
+                                  <g>
+                                    <path d="M40.297,51.043c-2.877,0-5.784-0.844-8.323-2.606l-0.538-0.375c-2.718-1.888-4.731-4.674-5.669-7.845
+                                      c-0.313-1.06,0.292-2.172,1.351-2.485c1.063-0.313,2.173,0.291,2.485,1.351c0.69,2.335,2.114,4.305,4.117,5.696l0.538,0.375
+                                      c4.799,3.332,11.421,2.138,14.757-2.664l13.93-18.59c3.294-4.744,2.1-11.365-2.703-14.701l-0.53-0.365
+                                      c-2.332-1.621-5.147-2.232-7.936-1.731c-2.787,0.503-5.212,2.061-6.828,4.388l-4.255,6.125c-0.63,0.908-1.876,1.132-2.783,0.502
+                                      s-1.132-1.876-0.502-2.783l4.255-6.125c2.225-3.205,5.564-5.351,9.404-6.043c3.838-0.691,7.718,0.153,10.922,2.379l0.529,0.365
+                                      c6.62,4.598,8.264,13.717,3.67,20.33l-13.93,18.59C49.453,48.868,44.914,51.043,40.297,51.043z"/>
+                                  </g>
+                                </g>
+                              </svg>
+                            </div>
+                          <input type="search" id="link" name="link" 
+                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" 
+                                 placeholder="Paste video link here..." required>
+                        </div>
+                      </div>
+              
+                      <!-- Video Format Dropdown -->
+                      <div>
+                        <label for="format" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Video Format:</label>
+                        <div class="relative mb-6">
+                          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zm0 18.182c-4.514 0-8.182-3.668-8.182-8.182S5.486 1.818 10 1.818 18.182 5.486 18.182 10 14.514 18.182 10 18.182z"/>
+                              <path d="M10 8.182c-.597 0-1.091.494-1.091 1.091s.494 1.091 1.091 1.091 1.091-.494 1.091-1.091-.494-1.091-1.091-1.091z"/>
+                            </svg>
+                          </div>
+                          <select id="format" name="format" 
+                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" 
+                                  required>
+                            <option disabled selected value>Select Video Format</option>
+                            <option value="mp3">Mp3</option>
+                            <option value="mp4a">144 Mp4</option>
+                            <option value="360">360 Mp4</option>
+                            <option value="480">480 Mp4</option>
+                            <option value="720">720 Mp4</option>
+                            <option value="1080">1080 Mp4</option>
+                            <option value="4k">4k Mp4</option>
+                          </select>
+                        </div>
+                      </div>
+          
+                    <div class="mt-6">
+                      <button type="button" 
+                              class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" 
+                              onclick="handleDownload()">
+                        Continue
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              </div>
+        </div>      
     </main>
-    <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
+    <footer class="text-black text-center pt-11.5 pb-11">
         <p class="pt-5">Website made by <u>Yamura</u><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
     </footer>
     <script>
@@ -170,6 +248,35 @@ input[type="text"] {
                 alert('Invalid YouTube video URL. Please enter a valid URL.');
             }
         }
+
+        function handleDownload() {
+            const link = document.getElementById('link').value.trim();
+            const format = document.getElementById('format').value;
+
+            if (!link || format === "Select Video Format") {
+            alert('Please provide both the video link and format.');
+            return;
+            }
+
+            // Check and create container if missing
+            let downloadContainer = document.querySelector('.download-video');
+            if (!downloadContainer) {
+            downloadContainer = document.createElement('div');
+            downloadContainer.className = 'download-video mt-6';
+            document.querySelector('.p-6').appendChild(downloadContainer);
+            }
+
+            // Embed the iframe
+            downloadContainer.innerHTML = `
+            <iframe 
+                style="width:100%;height:60px;border:0;overflow:hidden;" 
+                scrolling="no" 
+                src="https://loader.to/api/button/?url=${encodeURIComponent(link)}&f=${encodeURIComponent(format)}">
+            </iframe>
+            `;
+
+            console.log(`Downloading: ${link} as ${format}`);
+  }
     </script>
     <script src="./scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
