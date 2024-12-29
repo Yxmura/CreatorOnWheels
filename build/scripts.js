@@ -1,3 +1,14 @@
+window.addEventListener("load", () => {
+    const loader = document.querySelector(".loader");
+  
+    loader.classList.add("loader--hidden");
+  
+    loader.addEventListener("transitionend", () => {
+      document.body.removeChild(loader);
+    });
+  });
+  
+
 // Ensure the script runs after the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     const lightSwitch = document.getElementById('lightSwitch');
@@ -17,3 +28,4 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('dark-mode', isDark);
     });
 });
+
