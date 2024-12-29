@@ -9,6 +9,42 @@
     <link rel="stylesheet" href="./styles.css"/>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <title>Creator On Wheels</title>
+    <style>
+        #logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#logo {
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#thumbnailLinkAbove,
+#thumbnailLinkBelow {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#thumbnailContainer img {
+    max-width: 100%;
+    display: block;
+    margin: 20px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+    </style>
 </head>
 <body class="bg-white dark:bg-gray-900">
     <header>
@@ -55,13 +91,13 @@
                                       <a href="https://toniakendrick.com/content-creation-for-beginners/" target="_blank" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Creator Article</a>
                                   </li>
                                   <li>
-                                      <a href="./discords.html" class="block py-2 px-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Discord Servers</a>
+                                      <a href="./discords.html" class="block px-4 py-2 hover:bg-gray-100 rounded dark:hover:bg-gray-600  dark:hover:text-white" aria-current="page">Discord Servers</a>
                                   </li>
                                   <li>
                                       <a href="./videos.html" class="block px-4 py-2 hover:bg-gray-100 rounded dark:hover:bg-gray-600  dark:hover:text-white">Useful Videos</a>
                                   </li>
                                   <li>
-                                    <a href="./downloader.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">YouTube Downloader</a>
+                                    <a href="./downloader.html" class="block py-2 px-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 dark:bg-blue-600 md:dark:bg-transparent">YouTube Downloader</a>
                                   </li>
                                   <li>
                                       <a href="https://discord.gg/QehxPXP4jQ" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Copyright Checker</a>
@@ -80,100 +116,61 @@
     <main>
       <div class="loader"></div>
         <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center">
-            <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-950">Useful Content Creaton Discord Servers</h1>
-            <p class="text-white text-lg text-center pt-5 dark:text-gray-900 font-semibold">The best reputable Discord Servers to get help or buy thumbnails from</p>
+            <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-950">Reliable YouTube downloader</h1>
+            <p class="text-white text-lg text-center pt-5 dark:text-gray-900 font-semibold">Download high quality YouTube video thumbnails virus free</p>
         </div>
         <div class="container mx-auto px-4 pb-10 pt-10">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <!-- Card 1 -->
-              <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
-                <div class="flex items-center p-4 border-b border-gray-200 dark:border-gray-700">
-                  <img 
-                    id="discord-logo-1"
-                    class="w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600" 
-                    src="./assets/discordIcons/thumbnailers.png" 
-                    alt="Discord Server Logo">
-                  <h1 class="ml-4 text-xl font-semibold text-gray-800 dark:text-gray-100">Thumbnailers</h1>
-                </div>
-                <div class="p-4">
-                  <p class="text-gray-600 dark:text-gray-300">
-                    Thumbnailers is a thriving community for Minecraft thumbnail designers. Whether you're a beginner or a pro, you'll find resources, feedback, and help to improve your skills and showcase your work. Join us to elevate your designs!
-                  </p>
-                </div>
-                <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                  <div class="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                    <span class="w-3 h-3 bg-secondary rounded-full mr-2"></span> 
-                    Members: 2.4k
-                  </div>
-                  <a 
-                    href="https://discord.gg/thumbnail"
-                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 dark:bg-indigo-500 rounded hover:bg-indigo-700 dark:hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-400">
-                    Join Server
-                  </a>
-                </div>
-              </div>
-        
-              <!-- Card 2 -->
-              <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
-                <div class="flex items-center p-4 border-b border-gray-200 dark:border-gray-700">
-                  <img 
-                    id="discord-logo-2"
-                    class="w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600" 
-                    src="./assets/discordIcons/DH.png" 
-                    alt="Discord Server Logo">
-                  <h1 class="ml-4 text-xl font-semibold text-gray-800 dark:text-gray-100">Minecraft Design Hub</h1>
-                </div>
-                <div class="p-4">
-                  <p class="text-gray-600 dark:text-gray-300">
-                    The Minecraft Design Hub is run by qualified designers with an extensive background in the GFX industry. We enjoy making designs, playing games and helping the community. In this community, you can purchase designs from our top notch designers.
-                  </p>
-                </div>
-                <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                  <div class="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                    <span class="w-3 h-3 bg-secondary rounded-full mr-2"></span> 
-                    Members: 5.6k
-                  </div>
-                  <a 
-                    href="https://discord.gg/DqAJQ6qn" 
-                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 dark:bg-indigo-500 rounded hover:bg-indigo-700 dark:hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-400">
-                    Join Server
-                  </a>
-                </div>
-              </div>
-        
-              <!-- Card 3 -->
-              <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
-                <div class="flex items-center p-4 border-b border-gray-200 dark:border-gray-700">
-                  <img 
-                    id="discord-logo-3"
-                    class="w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600" 
-                    src="https://cdn.discordapp.com/icons/1075932452842909806/a_e7b238b30233006c90e3464c4f27b626.gif" 
-                    alt="Discord Server Logo">
-                  <h1 class="ml-4 text-xl font-semibold text-gray-800 dark:text-gray-100">Creator Coaster</h1>
-                </div>
-                <div class="p-4">
-                  <p class="text-gray-600 dark:text-gray-300">
-                    Creator Coaster server will be your best friend through out your content creation journey, varying from assets up to professional editors & artists that are willing to help you no matter what!  No matter what you need help in, we're down to help you by having active staff & helpers that would be pleased to help!
-                  </p>
-                </div>
-                <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                  <div class="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                    <span class="w-3 h-3 bg-secondary rounded-full mr-2"></span> 
-                    Members: 8.3k
-                  </div>
-                  <a 
-                    href="#" 
-                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 dark:bg-indigo-500 rounded hover:bg-indigo-700 dark:hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-400">
-                    Join Server
-                  </a>
-                </div>
-              </div>
+            <form class="max-w-md mx-auto">   
+                <label for="videoUrl" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" onchange="showThumbnail()" id="videoUrl" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter valid YouTube video URL" />
+                    </div>
+            </form>
+            <!--<button onclick="showThumbnail()">Show & Download Thumbnail</button>  -->
+            <div id="thumbnailLinkAbove"></div>
+            <div id="thumbnailContainer" class="flex justify-center items-center text-center w-full"></div>
+            <div id="thumbnailLinkBelow"></div>
             </div>
           </div>        
     </main>
     <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
         <p class="pt-5">Website made by <u>Yamura</u><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
     </footer>
+    <script>
+        function showThumbnail() {
+            const videoUrl = document.getElementById('videoUrl').value;
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = videoUrl.match(regex);
+
+            if (match) {
+                const videoId = match[1];
+                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+                const thumbnailContainer = document.getElementById('thumbnailContainer');
+                thumbnailContainer.innerHTML = `<img class="mx-auto w-1/2" src="${thumbnailUrl}" alt="Video Thumbnail">`;
+
+                const thumbnailLinkAbove = document.getElementById('thumbnailLinkAbove');
+                const thumbnailLinkBelow = document.getElementById('thumbnailLinkBelow');
+
+                thumbnailLinkAbove.innerHTML = ``;
+                thumbnailLinkBelow.innerHTML = `<button onclick="window.open('${thumbnailUrl}');" type="button" class="dark:text-primary font-bold text-black bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
+                    <div class="pr-3"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z" clip-rule="evenodd"/>
+  <path fill-rule="evenodd" d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z" clip-rule="evenodd"/>
+</svg></div>
+ Download
+</button>`;
+
+            } else {
+                alert('Invalid YouTube video URL. Please enter a valid URL.');
+            }
+        }
+    </script>
     <script src="./scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
