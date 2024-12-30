@@ -145,28 +145,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createImageCard(asset) {
-        return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
-                <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                    <div class="w-full h-full flex items-center justify-center">
-                        <img 
-                            src="${asset.url}" 
-                            alt="${asset.title}" 
-                            class="max-w-full max-h-full object-scale-down"
-                            loading="lazy"
-                            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\'%3E%3C/rect%3E%3Ccircle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'%3E%3C/circle%3E%3Cpolyline points=\'21 15 16 10 5 21\'%3E%3C/polyline%3E%3C/svg%3E';"
-                        >
-                    </div>
-                </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
-                        Download
-                    </a>
+    return `
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
+            <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                <div class="w-full h-full flex items-center justify-center">
+                    <img 
+                        src="${asset.url}" 
+                        alt="${asset.title}" 
+                        class="max-w-full max-h-full object-scale-down"
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\'%3E%3C/rect%3E%3Ccircle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'%3E%3C/circle%3E%3Cpolyline points=\'21 15 16 10 5 21\'%3E%3C/polyline%3E%3C/svg%3E';"
+                    >
                 </div>
             </div>
-        `;
-    }
+            <div class="p-4 flex-grow flex flex-col justify-between">
+                <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
+                <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    Download
+                </a>
+            </div>
+        </div>
+    `;
+}
+
 
     function createVideoCard(asset) {
         return `
@@ -176,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -202,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -231,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="text-4xl text-white" style="font-family: '${fontFamily}';">${asset.title}</span>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <a href="${asset.url}" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -264,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-6 flex-grow flex flex-col justify-between">
                     <div class="flex-grow"></div>
-                    <a href="${asset.url}" 
+                    <a href="${asset.url}" target="_blank" 
                        download="${asset.title}.${asset.extension}" 
                        class="inline-block bg-secondary text-white px-4 py-2.5 rounded-lg hover:bg-[#8a74f4] transition-colors text-center font-medium">
                         Download Preset
