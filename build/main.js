@@ -30,21 +30,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const githubApiUrl = "https://api.github.com/repos/Yxmura/assets/contents/";
 
+    async function fetchContentsRecursively(path) {
+        try {
+            const response = await fetch(`${githubApiUrl}${path}`);
+            if (!response.ok) throw new Error(`Failed to fetch contents from ${path}`);
+            
+            const contents = await response.json();
+            let files = [];
+
+            for (const item of contents) {
+                if (item.type === "file") {
+                    files.push({
+                        title: item.name.replace(/\.[^/.]+$/, ""),
+                        url: item.download_url,
+                        type: path.split('/')[0], // Gets the main category (images, videos, etc.)
+                        extension: item.name.split('.').pop().toLowerCase(),
+                        tags: `${path.replace(/\//g, ' ')} ${item.name.replace(/\.[^/.]+$/, "")}`.toLowerCase()
+                    });
+                } else if (item.type === "dir") {
+                    // Recursively fetch contents from subdirectories
+                    const subFiles = await fetchContentsRecursively(`${path}/${item.name}`);
+                    files = files.concat(subFiles);
+                }
+            }
+
+            return files;
+        } catch (error) {
+            console.error(`Error fetching contents from ${path}:`, error);
+            return [];
+        }
+    }
+
     async function fetchAssets(category) {
         try {
-            const response = await fetch(githubApiUrl + category);
-            if (!response.ok) throw new Error(`Failed to fetch ${category} assets`);
+            const categoryAssets = await fetchContentsRecursively(category);
             
-            const files = await response.json();
-            const categoryAssets = files
-                .filter(file => file.type === "file")
-                .map(file => ({
-                    title: file.name.replace(/\.[^/.]+$/, ""),
-                    url: file.download_url,
-                    type: category,
-                    extension: file.name.split('.').pop().toLowerCase(),
-                    tags: file.name.replace(/\.[^/.]+$/, "").toLowerCase()
-                }));
+            if (categoryAssets.length === 0) {
+                throw new Error(`No assets found in ${category}`);
+            }
 
             assets[category] = categoryAssets;
             renderAssets();
@@ -61,8 +84,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function createImageCard(asset) {
         return `
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
-                <div class="h-48 overflow-hidden">
-                    <img src="${asset.url}" alt="${asset.title}" class="w-full h-full object-cover">
+                <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                    <div class="w-full h-full flex items-center justify-center">
+                        <img 
+                            src="${asset.url}" 
+                            alt="${asset.title}" 
+                            class="max-w-full max-h-full object-scale-down"
+                            loading="lazy"
+                            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\'%3E%3C/rect%3E%3Ccircle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'%3E%3C/circle%3E%3Cpolyline points=\'21 15 16 10 5 21\'%3E%3C/polyline%3E%3C/svg%3E';"
+                        >
+                    </div>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
