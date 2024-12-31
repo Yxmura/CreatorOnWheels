@@ -1,10 +1,11 @@
 # Creator On Wheels
 
-The ultimate all-in-one content-creation tool. Thousands of assets for graphic design and videoediting.
+The ultimate all-in-one content-creation tool. Thousands of assets for graphic design and video editing.
 
 
 ## Authors
 
+- [@Coder-Soft - Founder/Project Lead](https://www.github.com/coder-soft)
 - [@clover - project lead](https://www.youtube.com/@Yxmura)
 - [@yamura - lead dev](https://www.youtube.com/@Yxmura)
 - [@claw - PR lead](https://www.youtube.com/channel/UC9vd3qD2LRa1PEe2tDjZjfQ)
