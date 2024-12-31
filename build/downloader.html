@@ -113,140 +113,216 @@ input[type="text"] {
           </div>
       </nav>
     </header>
-    <main>
+    <main class="bg-slate-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
       <div class="loader"></div>
-        <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center">
-            <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-950">Reliable YouTube downloader</h1>
-            <p class="text-white text-lg text-center pt-5 dark:text-gray-900 font-semibold">Download high quality YouTube videos and thumbnails virus free</p>
-        </div>
-        <div class="container mx-auto px-4 pb-10 pt-10">
-            <form class="max-w-md mx-auto">   
-                <label for="videoUrl" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                    </div>
-                    <input type="search" onchange="showThumbnail()" id="videoUrl" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter valid YouTube video URL" />
-                    </div>
-            </form>
-            <!--<button onclick="showThumbnail()">Show & Download Thumbnail</button>  -->
-            <div id="thumbnailLinkAbove"></div>
-            <div id="thumbnailContainer" class="flex justify-center items-center text-center w-full"></div>
-            <div id="thumbnailLinkBelow"></div>
-            </div>
-          </div>
-          <div class="bg-gradient-to-r from-left to-right min-h-screen flex items-center justify-center relative">
-            <div id="hd" class="w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden relative">    
-              <div class="p-6">
-                <div class="text-secondary py-3 rounded text-center mb-6">
-                  <h2 class="text-3xl font-bold">YouTube Video Downloader</h5>
+      <div class="container mx-auto px-4 py-8">
+          <div class="max-w-4xl mx-auto">
+              <!-- Header with animation -->
+              <div class="text-center mb-12 opacity-0 animate-fadeIn">
+                  <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
+                      YouTube Downloader
+                  </h1>
+                  <p class="text-gray-600 dark:text-gray-400 text-lg">
+                      Download videos and thumbnails in high quality
+                  </p>
+              </div>
+  
+              <!-- Tabs -->
+              <div class="mb-8">
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="tab-nav" data-tabs-toggle="#tab-content" role="tablist">
+                        <li class="me-2" role="presentation">
+                            <button class="inline-flex items-center px-6 py-3 text-gray-900 dark:text-white font-medium border-b-2 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group" id="video-tab-button" data-tabs-target="#video-tab" type="button" role="tab" aria-controls="video-tab" aria-selected="true">
+                                <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                                Video
+                            </button>
+                        </li>
+                        <li class="me-2" role="presentation">
+                            <button class="inline-flex items-center px-6 py-3 text-gray-500 dark:text-gray-400 font-medium border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group" id="thumbnail-tab-button" data-tabs-target="#thumbnail-tab" type="button" role="tab" aria-controls="thumbnail-tab" aria-selected="false">
+                                <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Thumbnail
+                            </button>
+                        </li>
+                    </ul>
                 </div>
-                <div class="p-8">
-                    <form class="space-y-6">
-                      <!-- YouTube Link Input -->
-                      <div>
-                        <label for="link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter YT Video Link:</label>
-                        <div class="relative mb-6">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                              <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 72 72">
-                                <g>
-                                  <g>
-                                    <path d="M18.321,69.07c-2.874,0-5.775-0.845-8.31-2.604l-0.534-0.371c-6.614-4.593-8.259-13.712-3.666-20.326l13.931-18.588
-                                      c2.183-3.146,5.522-5.292,9.361-5.984c3.839-0.694,7.717,0.152,10.921,2.377l0.534,0.37c2.72,1.888,4.735,4.676,5.675,7.85
-                                      c0.313,1.059-0.291,2.172-1.351,2.485c-1.058,0.311-2.171-0.29-2.485-1.351c-0.691-2.337-2.116-4.308-4.119-5.698l-0.534-0.37
-                                      c-2.328-1.617-5.146-2.231-7.931-1.727c-2.787,0.503-5.212,2.061-6.828,4.388L9.055,48.108
-                                      c-3.293,4.744-2.099,11.365,2.704,14.701l0.534,0.371c4.801,3.334,11.423,2.142,14.759-2.66l4.256-6.126
-                                      c0.631-0.905,1.875-1.129,2.784-0.501c0.906,0.631,1.131,1.877,0.501,2.784l-4.256,6.125C27.504,66.882,22.948,69.07,18.321,69.07
-                                      z"/>
-                                  </g>
-                                  <g>
-                                    <path d="M40.297,51.043c-2.877,0-5.784-0.844-8.323-2.606l-0.538-0.375c-2.718-1.888-4.731-4.674-5.669-7.845
-                                      c-0.313-1.06,0.292-2.172,1.351-2.485c1.063-0.313,2.173,0.291,2.485,1.351c0.69,2.335,2.114,4.305,4.117,5.696l0.538,0.375
-                                      c4.799,3.332,11.421,2.138,14.757-2.664l13.93-18.59c3.294-4.744,2.1-11.365-2.703-14.701l-0.53-0.365
-                                      c-2.332-1.621-5.147-2.232-7.936-1.731c-2.787,0.503-5.212,2.061-6.828,4.388l-4.255,6.125c-0.63,0.908-1.876,1.132-2.783,0.502
-                                      s-1.132-1.876-0.502-2.783l4.255-6.125c2.225-3.205,5.564-5.351,9.404-6.043c3.838-0.691,7.718,0.153,10.922,2.379l0.529,0.365
-                                      c6.62,4.598,8.264,13.717,3.67,20.33l-13.93,18.59C49.453,48.868,44.914,51.043,40.297,51.043z"/>
-                                  </g>
-                                </g>
-                              </svg>
+                
+                <div id="tab-content">
+                    <!-- Video Tab Content -->
+                    <div class="hidden" id="video-tab" role="tabpanel" aria-labelledby="video-tab-button">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mt-6">
+                            <!-- Your existing video tab content here -->
+                            <div class="space-y-6">
+                                <div class="relative">
+                                    <div class="flex space-x-2">
+                                        <div class="flex-1">
+                                            <input type="url" id="video-url" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="Enter YouTube URL">
+                                        </div>
+                                        <button onclick="pasteFromClipboard('video-url')" class="px-4 py-2 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors duration-200">
+                                            <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Format selector -->
+                                <div class="relative">
+                                    <select id="format" class="w-full px-12 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 appearance-none transition-all duration-200">
+                                        <option value="mp3">MP3 (320kbps)</option>
+                                        <option value="mp4">MP4 (1080p)</option>
+                                    </select>
+                                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                        <svg id="format-icon" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path id="audio-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                                            <path id="video-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <button onclick="handleDownload()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                                    <svg fill="none" stroke="currentColor" class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.2928932,7 L17.1464466,4.85355339 C16.9511845,4.65829124 16.9511845,4.34170876 17.1464466,4.14644661 C17.3417088,3.95118446 17.6582912,3.95118446 17.8535534,4.14644661 L20.8535534,7.14644661 C21.0488155,7.34170876 21.0488155,7.65829124 20.8535534,7.85355339 L17.8535534,10.8535534 C17.6582912,11.0488155 17.3417088,11.0488155 17.1464466,10.8535534 C16.9511845,10.6582912 16.9511845,10.3417088 17.1464466,10.1464466 L19.2928932,8 L5.5,8 C4.67157288,8 4,8.67157288 4,9.5 L4,15.5 C4,16.3284271 4.67157288,17 5.5,17 L10.5,17 C10.7761424,17 11,17.2238576 11,17.5 C11,17.7761424 10.7761424,18 10.5,18 L5.5,18 C4.11928813,18 3,16.8807119 3,15.5 L3,9.5 C3,8.11928813 4.11928813,7 5.5,7 L19.2928932,7 Z"/>
+                                    </svg>
+                                    <span>Download</span>
+                                </button>
                             </div>
-                          <input type="search" id="link" name="link" 
-                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" 
-                                 placeholder="Paste video link here..." required>
                         </div>
-                      </div>
-              
-                      <!-- Video Format Dropdown -->
-                      <div>
-                        <label for="format" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Video Format:</label>
-                        <div class="relative mb-6">
-                          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zm0 18.182c-4.514 0-8.182-3.668-8.182-8.182S5.486 1.818 10 1.818 18.182 5.486 18.182 10 14.514 18.182 10 18.182z"/>
-                              <path d="M10 8.182c-.597 0-1.091.494-1.091 1.091s.494 1.091 1.091 1.091 1.091-.494 1.091-1.091-.494-1.091-1.091-1.091z"/>
-                            </svg>
-                          </div>
-                          <select id="format" name="format" 
-                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" 
-                                  required>
-                            <option disabled selected value>Select Video Format</option>
-                            <option value="mp3">Mp3</option>
-                            <option value="mp4a">144 Mp4</option>
-                            <option value="360">360 Mp4</option>
-                            <option value="480">480 Mp4</option>
-                            <option value="720">720 Mp4</option>
-                            <option value="1080">1080 Mp4</option>
-                            <option value="4k">4k Mp4</option>
-                          </select>
-                        </div>
-                      </div>
-          
-                    <div class="mt-6">
-                      <button type="button" 
-                              class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" 
-                              onclick="handleDownload()">
-                        Continue
-                      </button>
                     </div>
-                  </form>
+  
+                  <!-- Thumbnail Tab Content -->
+        <div class="hidden" id="thumbnail-tab" role="tabpanel" aria-labelledby="thumbnail-tab-button">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mt-6">
+                <div class="space-y-6">
+                    <div class="relative">
+                        <div class="flex space-x-2">
+                            <div class="flex-1">
+                                <input type="url" id="thumbnail-url" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="Enter YouTube URL">
+                            </div>
+                            <button onclick="pasteFromClipboard('thumbnail-url')" class="px-4 py-2 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors duration-200">
+                                <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button onclick="showThumbnail()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span>Get Thumbnail</span>
+                    </button>
                 </div>
-              </div>
-              </div>
-        </div>      
-    </main>
+                <div id="thumbnail-preview" class="mt-6 hidden">
+                    <div class="aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
+                        <img id="thumbnail-image" class="w-full h-full object-cover" src="" alt="Video Thumbnail">
+                    </div>
+                    <div class="mt-4 flex justify-center">
+                        <a id="download-thumbnail" href="#" target="_blank" download class="inline-flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            <span>Download Thumbnail</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <footer class="text-black text-center pt-11.5 pb-11">
         <p class="pt-5">Website made by <u>Yamura</u><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
     </footer>
     <script>
+        // Tab switching
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and hide all content
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active', 'border-blue-500', 'text-gray-900', 'dark:text-white'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                
+                // Add active class to clicked button and show corresponding content
+                button.classList.add('active', 'border-blue-500', 'text-gray-900', 'dark:text-white');
+                const tabId = button.getAttribute('data-tab');
+                const tabContent = document.getElementById(tabId + '-tab');
+                tabContent.classList.remove('hidden');
+                
+                // Trigger animation
+                void tabContent.offsetWidth; // Force reflow
+                tabContent.classList.add('animate-fadeIn');
+            });
+        });
+
+        // Paste from clipboard function
+        async function pasteFromClipboard(inputId) {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById(inputId).value = text;
+            } catch (err) {
+                console.error('Failed to read clipboard:', err);
+            }
+        }
+
+        // Show thumbnail function
         function showThumbnail() {
-            const videoUrl = document.getElementById('videoUrl').value;
+            const url = document.getElementById('thumbnail-url').value;
             const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-            const match = videoUrl.match(regex);
+            const match = url.match(regex);
 
             if (match) {
                 const videoId = match[1];
                 const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-
-                const thumbnailContainer = document.getElementById('thumbnailContainer');
-                thumbnailContainer.innerHTML = `<img class="mx-auto w-1/2" src="${thumbnailUrl}" alt="Video Thumbnail">`;
-
-                const thumbnailLinkAbove = document.getElementById('thumbnailLinkAbove');
-                const thumbnailLinkBelow = document.getElementById('thumbnailLinkBelow');
-
-                thumbnailLinkAbove.innerHTML = ``;
-                thumbnailLinkBelow.innerHTML = `<button onclick="window.open('${thumbnailUrl}');" type="button" class="dark:text-primary font-bold text-black bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
-                    <div class="pr-3"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z" clip-rule="evenodd"/>
-  <path fill-rule="evenodd" d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z" clip-rule="evenodd"/>
-</svg></div>
- Download
-</button>`;
-
+                
+                document.getElementById('thumbnail-image').src = thumbnailUrl;
+                document.getElementById('download-thumbnail').href = thumbnailUrl;
+                document.getElementById('thumbnail-preview').classList.remove('hidden');
             } else {
-                alert('Invalid YouTube video URL. Please enter a valid URL.');
+                alert('Please enter a valid YouTube URL');
             }
+        }
+
+        document.getElementById('format').addEventListener('change', function() {
+            const audioIcon = document.getElementById('audio-icon');
+            const videoIcon = document.getElementById('video-icon');
+            
+            if (this.value === 'mp3') {
+                audioIcon.classList.remove('hidden');
+                videoIcon.classList.add('hidden');
+            } else {
+                audioIcon.classList.add('hidden');
+                videoIcon.classList.remove('hidden');
+            }
+        });
+
+        // Download function
+        function handleDownload() {
+            const link = document.getElementById('link').value.trim();
+            const format = document.getElementById('format').value;
+
+            if (!link || format === "Select Video Format") {
+            alert('Please provide both the video link and format.');
+            return;
+            }
+
+            // Check and create container if missing
+            let downloadContainer = document.querySelector('.download-video');
+            if (!downloadContainer) {
+            downloadContainer = document.createElement('div');
+            downloadContainer.className = 'download-video mt-6';
+            document.querySelector('.p-6').appendChild(downloadContainer);
+            }
+
+            // Embed the iframe
+            downloadContainer.innerHTML = `
+            <iframe 
+                style="width:100%;height:60px;border:0;overflow:hidden;" 
+                scrolling="no" 
+                src="https://loader.to/api/button/?url=${encodeURIComponent(link)}&f=${encodeURIComponent(format)}">
+            </iframe>
+            `;
+
+            console.log(`Downloading: ${link} as ${format}`);
         }
 
         function handleDownload() {

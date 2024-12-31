@@ -165,12 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function createCreditBadge(credit) {
         if (!credit) return '';
         return `
-            <div class="absolute top-2 right-2 z-10 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                <div class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <div class="absolute top-2 right-2 z-10 bg-black/40 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
+                <div class="flex items-center gap-1 sm:gap-1.5">
+                    <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2v-2zm0-2h2V7h-2v7z"/>
                     </svg>
-                    <span class="text-xs font-medium text-white">Credit: ${credit}</span>
+                    <span class="text-xs sm:text-sm font-medium text-white">Credit: ${credit}</span>
                 </div>
             </div>
         `;
@@ -179,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function createImageCard(asset) {
         const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
         return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
-                <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[300px] sm:h-[400px]">
+                <div class="relative h-40 sm:h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                     ${createCreditBadge(credit)}
                     <div class="w-full h-full flex items-center justify-center">
                         <img 
@@ -193,20 +193,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
+                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
             </div>
         `;
     }
-
+    
     function createVideoCard(asset) {
         const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
         return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
-                <div class="relative h-48 bg-black flex items-center justify-center">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[300px] sm:h-[400px]">
+                <div class="relative h-40 sm:h-48 bg-black flex items-center justify-center">
                     ${createCreditBadge(credit)}
                     <video 
                         class="w-full h-full object-cover" 
@@ -218,27 +218,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     </video>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
+                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
             </div>
         `;
     }
-
+    
     function createAudioCard(asset) {
         const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
         const id = `audio-${displayTitle.replace(/\s+/g, '-')}`;
         return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[300px] flex flex-col">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[250px] sm:h-[300px]">
                 <div class="relative bg-gradient-to-br from-[#9b87f5] to-[#8a74f4] flex items-center justify-center p-4">
                     ${createCreditBadge(credit)}
                     <div class="w-full">
-                        <div id="waveform-${id}" class="w-full h-16 mb-2"></div>
-                        <div class="flex justify-between items-center text-white text-sm mb-2">
+                        <div id="waveform-${id}" class="w-full h-12 sm:h-16 mb-2"></div>
+                        <div class="flex justify-between items-center text-white text-xs sm:text-sm mb-2">
                             <span class="duration-${id}">0:00</span>
-                            <button onclick="toggleAudio('${id}')" class="play-button-${id} bg-white text-[#9b87f5] px-4 py-1 rounded-full hover:bg-gray-100 transition-colors">
+                            <button onclick="toggleAudio('${id}')" class="play-button-${id} bg-white text-[#9b87f5] px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm hover:bg-gray-100 transition-colors">
                                 Play
                             </button>
                         </div>
@@ -246,8 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <audio id="${id}" src="${asset.url}" class="custom-audio-player"></audio>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
+                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
