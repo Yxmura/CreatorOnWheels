@@ -321,33 +321,34 @@ input[type="text"] {
         }
 
         function handleDownload() {
-            const link = document.getElementById('link').value.trim();
+            const url = document.getElementById('video-url').value.trim();
             const format = document.getElementById('format').value;
-
-            if (!link || format === "Select Video Format") {
-            alert('Please provide both the video link and format.');
-            return;
+        
+            if (!url) {
+                alert('Please provide a video URL.');
+                return;
             }
-
+        
+            // Find the video tab content container
+            const videoTab = document.getElementById('video-tab');
+            
             // Check and create container if missing
-            let downloadContainer = document.querySelector('.download-video');
+            let downloadContainer = videoTab.querySelector('.download-video');
             if (!downloadContainer) {
-            downloadContainer = document.createElement('div');
-            downloadContainer.className = 'download-video mt-6';
-            document.querySelector('.p-6').appendChild(downloadContainer);
+                downloadContainer = document.createElement('div');
+                downloadContainer.className = 'download-video mt-6';
+                videoTab.querySelector('.p-6').appendChild(downloadContainer);
             }
-
+        
             // Embed the iframe
             downloadContainer.innerHTML = `
-            <iframe 
-                style="width:100%;height:60px;border:0;overflow:hidden;" 
-                scrolling="no" 
-                src="https://loader.to/api/button/?url=${encodeURIComponent(link)}&f=${encodeURIComponent(format)}">
-            </iframe>
+                <iframe 
+                    style="width:100%;height:60px;border:0;overflow:hidden;" 
+                    scrolling="no" 
+                    src="https://loader.to/api/button/?url=${encodeURIComponent(url)}&f=${encodeURIComponent(format)}">
+                </iframe>
             `;
-
-            console.log(`Downloading: ${link} as ${format}`);
-  }
+        }
     </script>
     <script src="./scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
