@@ -299,12 +299,20 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             return;
         }
-
+    
+        // Clean up existing audio players before rendering new ones
+        audioPlayers.forEach(player => {
+            if (player.wavesurfer) {
+                player.wavesurfer.destroy();
+            }
+        });
+        audioPlayers.clear();
+    
         assetContainer.innerHTML = "";
         const start = (currentPage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const visibleAssets = currentAssets.slice(start, end);
-
+    
         assetContainer.innerHTML = visibleAssets.map(asset => {
             switch(currentTab) {
                 case 'images':
@@ -322,51 +330,69 @@ document.addEventListener('DOMContentLoaded', () => {
                     return createImageCard(asset);
             }
         }).join('');
-
+    
         // Initialize WaveSurfer for audio assets
         if (currentTab === 'music' || currentTab === 'sfx') {
-            filteredAssets.forEach(asset => {
+            visibleAssets.forEach(asset => {
                 const id = `audio-${asset.title.replace(/\s+/g, '-')}`;
-                const wavesurfer = WaveSurfer.create({
-                    container: `#waveform-${id}`,
-                    waveColor: '#ffffff99',
-                    progressColor: '#ffffff',
-                    cursorColor: '#ffffff',
-                    barWidth: 2,
-                    barGap: 1,
-                    height: 64,
-                    responsive: true
-                });
-                wavesurfer.load(asset.url);
+                const waveformContainer = document.getElementById(`waveform-${id}`);
                 
-                // Update duration when audio is loaded
-                wavesurfer.on('ready', () => {
-                    const duration = wavesurfer.getDuration();
-                    const durationElement = document.querySelector(`.duration-${id}`);
-                    if (durationElement) {
-                        durationElement.textContent = formatDuration(duration);
-                    }
-                });
-                
-                audioPlayers.set(id, { wavesurfer, isPlaying: false });
+                if (waveformContainer) {
+                    const wavesurfer = WaveSurfer.create({
+                        container: `#waveform-${id}`,
+                        waveColor: '#ffffff99',
+                        progressColor: '#ffffff',
+                        cursorColor: '#ffffff',
+                        barWidth: 2,
+                        barGap: 1,
+                        height: 64,
+                        responsive: true
+                    });
+    
+                    wavesurfer.load(asset.url);
+                    
+                    // Update duration when audio is loaded
+                    wavesurfer.on('ready', () => {
+                        const duration = wavesurfer.getDuration();
+                        const durationElement = document.querySelector(`.duration-${id}`);
+                        if (durationElement) {
+                            durationElement.textContent = formatDuration(duration);
+                        }
+                    });
+                    
+                    // Store the wavesurfer instance
+                    audioPlayers.set(id, { wavesurfer, isPlaying: false });
+                }
             });
         }
     }
 
     // Global function for audio control
     window.toggleAudio = (id) => {
-        const player = audioPlayers.get(id);
-        if (!player) return;
+        const selectedPlayer = audioPlayers.get(id);
+        if (!selectedPlayer) return;
+
+        // Pause all other players
+        audioPlayers.forEach((player, playerId) => {
+            if (playerId !== id && player.isPlaying) {
+                player.wavesurfer.pause();
+                player.isPlaying = false;
+                const otherButton = document.querySelector(`.play-button-${playerId}`);
+                if (otherButton) {
+                    otherButton.textContent = 'Play';
+                }
+            }
+        });
 
         const button = document.querySelector(`.play-button-${id}`);
-        if (player.isPlaying) {
-            player.wavesurfer.pause();
+        if (selectedPlayer.isPlaying) {
+            selectedPlayer.wavesurfer.pause();
             button.textContent = 'Play';
         } else {
-            player.wavesurfer.play();
+            selectedPlayer.wavesurfer.play();
             button.textContent = 'Pause';
         }
-        player.isPlaying = !player.isPlaying;
+        selectedPlayer.isPlaying = !selectedPlayer.isPlaying;
     };
 
     tabButtons.forEach(button => {
