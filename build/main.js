@@ -340,13 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="p-4">
                         <div class="w-full rounded-lg overflow-hidden" style="height: 600px;">
-                            <iframe
-                                src="https://mcicons.ccleaf.com/" 
-                                class="w-full h-full zoom=1.25"
-                                style="border: none;"
-                                loading="lazy"
-                                allowfullscreen
-                            ></iframe>
+                            
                         </div>
                     </div>
                 </div>
