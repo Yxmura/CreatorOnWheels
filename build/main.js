@@ -145,101 +145,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Helper function to parse title and credit
-    function parseAssetTitle(title) {
-        const creditMatch = title.match(/__(.+)$/);
-        if (creditMatch) {
-            return {
-                displayTitle: title.replace(/__(.+)$/, '').trim(),
-                credit: creditMatch[1],
-                originalTitle: title // Keep the original title for file operations
-            };
-        }
-        return {
-            displayTitle: title,
-            credit: null,
-            originalTitle: title
-        };
-    }
-
-    // Credit badge HTML template
-    function createCreditBadge(credit) {
-        if (!credit) return '';
-        return `
-            <div class="absolute top-2 right-2 z-10 bg-black/40 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
-                <div class="flex items-center gap-1 sm:gap-1.5">
-                    <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2v-2zm0-2h2V7h-2v7z"/>
-                    </svg>
-                    <span class="text-xs sm:text-sm font-medium text-white">Credit: ${credit}</span>
-                </div>
-            </div>
-        `;
-    }
-
     function createImageCard(asset) {
-        const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
-        return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[300px] sm:h-[400px]">
-                <div class="relative h-40 sm:h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                    ${createCreditBadge(credit)}
-                    <div class="w-full h-full flex items-center justify-center">
-                        <img 
-                            src="${asset.url}" 
-                            alt="${displayTitle}" 
-                            class="max-w-full max-h-full object-scale-down"
-                            loading="lazy"
-                            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\'%3E%3C/rect%3E%3Ccircle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'%3E%3C/circle%3E%3Cpolyline points=\'21 15 16 10 5 21\'%3E%3C/polyline%3E%3C/svg%3E';"
-                        >
-                    </div>
-                </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
-                        Download
-                    </a>
-                </div>
-            </div>
-        `;
-    }
-    
-    function createVideoCard(asset) {
-        const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
-        return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[300px] sm:h-[400px]">
-                <div class="relative h-40 sm:h-48 bg-black flex items-center justify-center">
-                    ${createCreditBadge(credit)}
-                    <video 
-                        class="w-full h-full object-cover" 
-                        controls
-                        preload="metadata"
+    return `
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
+            <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                <div class="w-full h-full flex items-center justify-center">
+                    <img 
+                        src="${asset.url}" 
+                        alt="${asset.title}" 
+                        class="max-w-full max-h-full object-scale-down"
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\'%3E%3C/rect%3E%3Ccircle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'%3E%3C/circle%3E%3Cpolyline points=\'21 15 16 10 5 21\'%3E%3C/polyline%3E%3C/svg%3E';"
                     >
-                        <source src="${asset.url}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                </div>
+            </div>
+            <div class="p-4 flex-grow flex flex-col justify-between">
+                <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
+                <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    Download
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+
+    function createVideoCard(asset) {
+        return `
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
+                <div class="h-48 bg-black flex items-center justify-center">
+                    <video src="${asset.url}" class="w-full h-full object-cover" controls></video>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
+                    <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
             </div>
         `;
     }
-    
+
     function createAudioCard(asset) {
-        const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
-        const id = `audio-${displayTitle.replace(/\s+/g, '-')}`;
+        const id = `audio-${asset.title.replace(/\s+/g, '-')}`;
         return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[250px] sm:h-[300px]">
-                <div class="relative bg-gradient-to-br from-[#9b87f5] to-[#8a74f4] flex items-center justify-center p-4">
-                    ${createCreditBadge(credit)}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[300px] flex flex-col">
+                <div class="bg-gradient-to-br from-[#9b87f5] to-[#8a74f4] flex items-center justify-center p-4">
                     <div class="w-full">
-                        <div id="waveform-${id}" class="w-full h-12 sm:h-16 mb-2"></div>
-                        <div class="flex justify-between items-center text-white text-xs sm:text-sm mb-2">
+                        <div id="waveform-${id}" class="w-full h-16 mb-2"></div>
+                        <div class="flex justify-between items-center text-white text-sm mb-2">
                             <span class="duration-${id}">0:00</span>
-                            <button onclick="toggleAudio('${id}')" class="play-button-${id} bg-white text-[#9b87f5] px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm hover:bg-gray-100 transition-colors">
+                            <button onclick="toggleAudio('${id}')" class="play-button-${id} bg-white text-[#9b87f5] px-4 py-1 rounded-full hover:bg-gray-100 transition-colors">
                                 Play
                             </button>
                         </div>
@@ -247,8 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <audio id="${id}" src="${asset.url}" class="custom-audio-player"></audio>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${asset.title}</h3>
+                    <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -257,9 +213,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createFontCard(asset) {
-        const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
-        const fontFamily = `font-${displayTitle.replace(/\s+/g, '-')}`;
-        
+        // Create a unique font-family name using the asset title
+        const fontFamily = `font-${asset.title.replace(/\s+/g, '-')}`;
+    
+        // Dynamically inject the @font-face CSS rule
         const styleElement = document.createElement('style');
         styleElement.textContent = `
             @font-face {
@@ -268,15 +225,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         `;
         document.head.appendChild(styleElement);
-        
+    
+        // Return the font card HTML with the custom font applied
         return `
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[200px] flex flex-col">
-                <div class="relative h-48 bg-gradient-to-br from-[#9b87f5] to-[#8a74f4] flex items-center justify-center p-4">
-                    ${createCreditBadge(credit)}
-                    <span class="text-4xl text-white" style="font-family: '${fontFamily}';">${displayTitle}</span>
+                <div class="h-48 bg-gradient-to-br from-[#9b87f5] to-[#8a74f4] flex items-center justify-center p-4">
+                    <span class="text-4xl text-white" style="font-family: '${fontFamily}';">${asset.title}</span>
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" target="_blank" download="${asset.title}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
@@ -338,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
         assetGrid.innerHTML = filteredAssets.map(asset => {
             switch(currentTab) {
                 case 'images':
-                case 'minecraft':
                     return createImageCard(asset);
                 case 'videos':
                     return createVideoCard(asset);
@@ -401,29 +357,28 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            tabButtons.forEach(btn => {
-                btn.classList.remove('border-secondary', 'text-secondary', 'font-medium');
-                btn.classList.add('border-transparent', 'text-gray-500');
-            });
-            button.classList.remove('border-transparent', 'text-gray-500');
-            button.classList.add('border-secondary', 'text-secondary', 'font-medium');
-
-            currentTab = button.dataset.tab;
-            if (currentTab === 'presets') {
-                filterButtons.style.display = 'flex';
-                fetchPresets();
-            } else {
-                filterButtons.style.display = 'none';
-                audioPlayers.forEach(player => {
-                    player.wavesurfer.destroy();
-                });
-                audioPlayers.clear();
-                fetchAssets(currentTab);
-                
-            }
+    button.addEventListener('click', () => {
+        tabButtons.forEach(btn => {
+            btn.classList.remove('border-secondary', 'text-secondary', 'font-medium');
+            btn.classList.add('border-transparent', 'text-gray-500');
         });
+        button.classList.remove('border-transparent', 'text-gray-500');
+        button.classList.add('border-secondary', 'text-secondary', 'font-medium');
+
+        currentTab = button.dataset.tab;
+        if (currentTab === 'presets') {
+            filterButtons.style.display = 'flex';
+            fetchPresets();
+        } else {
+            filterButtons.style.display = 'none';
+            audioPlayers.forEach(player => {
+                player.wavesurfer.destroy();
+            });
+            audioPlayers.clear();
+            fetchAssets(currentTab);
+        }
     });
+});
 
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
