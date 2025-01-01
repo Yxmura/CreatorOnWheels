@@ -121,29 +121,37 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    async function fetchAssets(category) {
-        try {
-            if (category === 'presets') {
-                filterButtons.style.display = 'flex';
-                await fetchPresets();
-            } else {
-                filterButtons.style.display = 'none';
-                const categoryAssets = await fetchContentsRecursively(category);
-                if (categoryAssets.length === 0) {
-                    throw new Error(`No assets found in ${category}`);
+    const itemsPerPage = 9;
+            let currentPage = 1;
+            let currentAssets = [];
+
+            const assetContainer = document.getElementById("asset-container");
+            const pagination = document.getElementById("pagination");
+
+            async function fetchAssets(category) {
+                try {
+                    if (category === 'presets') {
+                        filterButtons.style.display = 'flex';
+                        await fetchPresets();
+                    } else {
+                        filterButtons.style.display = 'none';
+                        const categoryAssets = await fetchContentsRecursively(category);
+                        if (categoryAssets.length === 0) {
+                            throw new Error(`No assets found in ${category}`);
+                        }
+                        currentAssets = categoryAssets;
+                        currentPage = 1;
+                        updateView();
+                    }
+                } catch (error) {
+                    console.error(`Error fetching ${category} assets:`, error);
+                    assetContainer.innerHTML = `
+                        <div class="col-span-full text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                            <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Error loading assets, please try again later.</h2>
+                        </div>
+                    `;
                 }
-                assets[category] = categoryAssets;
-                renderAssets();
             }
-        } catch (error) {
-            console.error(`Error fetching ${category} assets:`, error);
-            assetGrid.innerHTML = `
-                <div class="col-span-full text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                    <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Error loading assets, please try again later.</h2>
-                </div>
-            `;
-        }
-    }
 
     function createImageCard(asset) {
     return `
@@ -282,9 +290,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
-    function renderAssets(filteredAssets = assets[currentTab]) {
-        if (!filteredAssets || filteredAssets.length === 0) {
-            assetGrid.innerHTML = `
+    function renderAssets() {
+        if (!currentAssets || currentAssets.length === 0) {
+            assetContainer.innerHTML = `
                 <div class="col-span-full text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">No assets found</h2>
                 </div>
@@ -292,7 +300,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        assetGrid.innerHTML = filteredAssets.map(asset => {
+        assetContainer.innerHTML = "";
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const visibleAssets = currentAssets.slice(start, end);
+
+        assetContainer.innerHTML = visibleAssets.map(asset => {
             switch(currentTab) {
                 case 'images':
                     return createImageCard(asset);
@@ -379,6 +392,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function renderPagination() {
+    pagination.innerHTML = "";
+    const totalPages = Math.ceil(currentAssets.length / itemsPerPage);
+
+    const prevButton = document.createElement("button");
+    prevButton.textContent = "<";
+    prevButton.className = "px-3 py-1 mx-1 bg-blue-500 text-white rounded hover:bg-blue-700";
+    prevButton.disabled = currentPage === 1;
+    prevButton.onclick = () => {
+        currentPage--;
+        updateView();
+    };
+
+    pagination.appendChild(prevButton);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement("button");
+        pageButton.textContent = i;
+        pageButton.className = `px-3 py-1 mx-1 rounded hover:bg-blue-700 ${
+            i === currentPage ? "bg-blue-700 text-white" : "bg-blue-500 text-white"
+        }`;
+        pageButton.onclick = () => {
+            currentPage = i;
+            updateView();
+        };
+
+        pagination.appendChild(pageButton);
+    }
+
+    const nextButton = document.createElement("button");
+    nextButton.textContent = ">";
+    nextButton.className = "px-3 py-1 mx-1 bg-blue-500 text-white rounded hover:bg-blue-700";
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.onclick = () => {
+        currentPage++;
+        updateView();
+    };
+
+    pagination.appendChild(nextButton);
+}
+
+function updateView() {
+    renderAssets();
+    renderPagination();
+}
 
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
