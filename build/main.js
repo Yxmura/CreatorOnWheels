@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function createImageCard(asset) {
         const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
         return `
-        
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[300px] sm:h-[400px]">
                 <div class="relative h-40 sm:h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                     ${createCreditBadge(credit)}
@@ -196,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="../.netlify/functions-internal/download?url=${asset.url}&filename=${originalTitle}.${asset.extension}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
+                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>
