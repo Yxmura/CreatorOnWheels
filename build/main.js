@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createImageCard(asset) {
         const { displayTitle, credit, originalTitle } = parseAssetTitle(asset.title);
         return `
+        
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col min-h-[300px] sm:h-[400px]">
                 <div class="relative h-40 sm:h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                     ${createCreditBadge(credit)}
