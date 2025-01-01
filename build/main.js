@@ -27,7 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         sfx: [],
         music: [],
         fonts: [],
-        presets: []
+        presets: [],
+        minecraft: [{
+            title: "Minecraft Item And Blocks Icons",
+            description: "Browse and download Minecraft item icons",
+            url: "https://mcicons.ccleaf.com/",
+            tags: "minecraft icons items blocks"
+        }]
     };
 
     // for the presets (to filter like the 2 categories yk)
@@ -324,6 +330,30 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
+    function createMinecraftCard() {
+        return `
+            <div class="col-span-full">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-gradient-to-r from-[#9b87f5] to-[#8a74f4] p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Minecraft Icons & Assets</h2>
+                        <p class="text-white/80">Browse and download Minecraft related assets and icons</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="w-full rounded-lg overflow-hidden" style="height: 600px;">
+                            <iframe
+                                src="https://mcicons.ccleaf.com/" 
+                                class="w-full h-full zoom=1.25"
+                                style="border: none;"
+                                loading="lazy"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
     function renderAssets(filteredAssets = assets[currentTab]) {
         if (!filteredAssets || filteredAssets.length === 0) {
             assetGrid.innerHTML = `
@@ -347,6 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     return createFontCard(asset);
                 case 'presets':
                     return createPresetCard(asset);
+                case 'minecraft':
+                    return createMinecraftCard(asset);
                 default:
                     return createImageCard(asset);
             }
@@ -399,28 +431,32 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        tabButtons.forEach(btn => {
-            btn.classList.remove('border-secondary', 'text-secondary', 'font-medium');
-            btn.classList.add('border-transparent', 'text-gray-500');
-        });
-        button.classList.remove('border-transparent', 'text-gray-500');
-        button.classList.add('border-secondary', 'text-secondary', 'font-medium');
-
-        currentTab = button.dataset.tab;
-        if (currentTab === 'presets') {
-            filterButtons.style.display = 'flex';
-            fetchPresets();
-        } else {
-            filterButtons.style.display = 'none';
-            audioPlayers.forEach(player => {
-                player.wavesurfer.destroy();
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => {
+                btn.classList.remove('border-secondary', 'text-secondary', 'font-medium');
+                btn.classList.add('border-transparent', 'text-gray-500');
             });
-            audioPlayers.clear();
-            fetchAssets(currentTab);
-        }
+            button.classList.remove('border-transparent', 'text-gray-500');
+            button.classList.add('border-secondary', 'text-secondary', 'font-medium');
+
+            currentTab = button.dataset.tab;
+            if (currentTab === 'presets') {
+                filterButtons.style.display = 'flex';
+                fetchPresets();
+            } else {
+                filterButtons.style.display = 'none';
+                audioPlayers.forEach(player => {
+                    player.wavesurfer.destroy();
+                });
+                audioPlayers.clear();
+                if (currentTab === 'minecraft') {
+                    renderAssets(assets.minecraft);
+                } else {
+                    fetchAssets(currentTab);
+                }
+            }
+        });
     });
-});
 
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();

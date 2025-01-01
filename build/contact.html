@@ -70,7 +70,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="https://discord.gg/XQsN7dD7xA" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                            <a href="./contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -83,240 +83,73 @@
             <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-950">Contact Us</h1>
             <p class="text-white text-lg text-center pt-10 dark:text-gray-900 font-semibold">Contact us, give feedback, provide assets and help make this project even better</p>
         </div>
-        <div class="bg-primary dark:bg-black pt-5 pb-5 align-middle items-center space-x-6 px-5 dark:text-primary text-black">
-            <div class="container mx-auto py-8 px-4">
-                
-                <h1 class="text-2xl font-bold mb-6">Dynamic Form</h1>
-                <form id="dynamicForm" class="space-y-6 max-w-sm mx-auto">
-                    <!-- Section 1 -->
-                    <div id="section1" class="space-y-4">
-                        <div>
-                            <label for="discordUsername" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                              Enter your Discord Username
-                            </label>
-                            <div class="flex">
-                              <span
-                                class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36"><path fill="#5865f2" 
-                                    d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
-                              </span>
-                              <input type="text" id="discordUsername" oninput="validateDiscordUsername(this)"
-                                class="w-full p-2 border border-gray-300 rounded-e-md dark:bg-gray-800 dark:border-gray-600"
-                                placeholder="skibidsigma69" required>
-                            </div>
-                            <p id="validation-message" class="mt-2 text-sm"></p>
-                          </div>
-                        <div>
-                            <label for="dropdown" class="block text-sm font-medium">Choose an option</label>
-                            <select id="dropdown" name="dropdown" onchange="handleDropdownChange()" 
-                                class="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600" disabled>
-                                <option value="">Select an option</option>
-                                <option value="assets">I want to commit new Assets</option>
-                                <option value="question">I have a question</option>
-                                <option value="apply">I want to help</option>
-                            </select>
-                        </div>
-                    </div>
-        
-                    <!-- Section 2 -->
-                    <div id="section2" class="space-y-4 hidden">
-                        <!-- Dynamic content will be injected here -->
-                    </div>
-        
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
-                </form>
+</head>
+<div class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-4 sm:gap-8 mb-8 sm:mb-12">
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300">
+                <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-purple-600 dark:text-purple-400">Email Us</h2>
+                <p class="mb-4">Reach out to us at:</p>
+                <a href="mailto:info.creatoronwheels@proton.me" 
+                   class="text-pink-600 dark:text-pink-400 hover:text-pink-500 dark:hover:text-pink-300 motion-preset-confetti  text-xl break-all">
+                    info.creatoronwheels@proton.me
+                </a>
             </div>
-        
-            <script>
-                let validated = false;
 
-                // Validation for Discord username
-                function validateDiscordUsername(input) {
-                    const validPattern = /^[a-zA-Z0-9]*$/; // No special characters, no spaces
-                    const messageElement = document.getElementById("validation-message");
-                    const dropdown = document.getElementById("dropdown");
-
-                    if (input.value === "") {
-                        messageElement.textContent = "Username cannot be empty!";
-                        messageElement.className = "text-red-600 dark:text-red-500";
-                        input.className =
-                            "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-red-500";
-                        validated = false;
-                    } else if (validPattern.test(input.value)) {
-                        messageElement.textContent = "Alright! Username is valid!";
-                        messageElement.className = "text-green-600 dark:text-green-500";
-                        input.className =
-                            "bg-green-50 border border-green-500 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500";
-                        validated = true;
-                    } else {
-                        messageElement.textContent = "Oops! No special characters or spaces allowed.";
-                        messageElement.className = "text-red-600 dark:text-red-500";
-                        input.className =
-                            "bg-red-50 border border-red-500 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-red-500";
-                        validated = false;
-                    }
-
-                    // Enable or disable the dropdown
-                    dropdown.disabled = !validated;
-                }
-        
-                function handleDropdownChange() {
-                    const section2 = document.getElementById('section2');
-                    const dropdown = document.getElementById('dropdown');
-                    const selectedValue = dropdown.value;
-        
-                    // Clear previous content
-                    section2.innerHTML = '';
-        
-                    if (selectedValue) {
-                        section2.classList.remove('hidden');
-        
-                        // Generate dynamic questions based on the selection
-                        if (selectedValue === 'assets') {
-                            section2.innerHTML = `
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload file</label>
-                                <input 
-                                    onchange="validateSize(this)" 
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
-                                    aria-describedby="user_avatar_help" 
-                                    id="user_avatar" 
-                                    type="file" 
-                                    multiple>
-                                <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">
-                                    Your asset(s) will get reviewed. Don't provide Minecraft items/blocks please. Don't provide assets over 10MB, they won't get sent.
-                                </div>
-                                <p id="file-validation-message" class="mt-2 text-sm"></p>
-                            </div>`;
-                        } else if (selectedValue === 'question') {
-                            section2.innerHTML = `
-                                <div>
-                                    <label for="question2" class="block text-sm font-medium">What makes Option 2 special to you?</label>
-                                    <textarea id="question2" name="question2" rows="3" 
-                                        class="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600"></textarea>
-                                </div>`;
-                        } else if (selectedValue === 'apply') {
-                            section2.innerHTML = `
-                                <div>
-                                    <label for="question3" class="block text-sm font-medium">Please describe your thoughts on Option 3.</label>
-                                    <input type="text" id="question3" name="question3" 
-                                        class="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600">
-                                </div>`;
-                        }
-                    } else {
-                        section2.classList.add('hidden');
-                    }
-                }
-        
-                // Validation for file input
-                function validateSize(input) {
-                    const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
-                    const messageElement = document.getElementById("file-validation-message");
-                    const files = input.files;
-                    
-                    if (files.length === 0) {
-                    messageElement.textContent = "Please select at least one file.";
-                    messageElement.className = "text-red-600 dark:text-red-500";
-                    } else {
-                    let allValid = true;
-                    for (let i = 0; i < files.length; i++) {
-                        if (files[i].size > maxSize) {
-                        allValid = false;
-                        break;
-                        }
-                    }
-                    if (allValid) {
-                        messageElement.textContent = "All files are valid!";
-                        messageElement.className = "text-green-600 dark:text-green-500";
-                    } else {
-                        messageElement.textContent = "Files exceed 10 MB. Please upload smaller files.";
-                        messageElement.className = "text-red-600 dark:text-red-500";
-                    }
-                    }
-                }
-
-                const form = document.getElementById('dynamicForm');
-
-                form.addEventListener('submit', async (event) => {
-                    event.preventDefault();
-
-                    const formData = new FormData(form);
-                    const discordUsername = document.getElementById('discordUsername').value;
-                    const selectedOption = document.getElementById('dropdown').value;
-                    const filesInput = document.getElementById('user_avatar');
-                    const files = filesInput ? Array.from(filesInput.files) : [];
-                    const additionalData = {};
-
-                    // Gather other dynamic inputs
-                    formData.forEach((value, key) => {
-                        if (!['dropdown', 'user_avatar', 'discordUsername'].includes(key)) {
-                            additionalData[key] = value;
-                        }
-                    });
-
-                    // Prepare the embed payload
-                    const embed = {
-                        embeds: [
-                            {
-                                title: "New Submission Received",
-                                color: 3447003, // Blue color
-                                fields: [
-                                    {
-                                        name: "Discord Username",
-                                        value: discordUsername || "N/A",
-                                        inline: true,
-                                    },
-                                    {
-                                        name: "Selected Option",
-                                        value: selectedOption || "N/A",
-                                        inline: true,
-                                    },
-                                ],
-                                footer: {
-                                    text: `Submitted on: ${new Date().toLocaleString()}`,
-                                },
-                            },
-                        ],
-                    };
-
-                    // Add dynamic fields
-                    if (Object.keys(additionalData).length > 0) {
-                        for (const [key, value] of Object.entries(additionalData)) {
-                            embed.embeds[0].fields.push({
-                                name: key,
-                                value: value || "N/A",
-                                inline: false,
-                            });
-                        }
-                    }
-
-                    // Add file information
-                    if (files.length > 0) {
-                        embed.embeds[0].fields.push({
-                            name: "Uploaded Files",
-                            value: files.map((file) => file.name).join(", ") || "N/A",
-                            inline: false,
-                        });
-                    }
-
-                    try {
-                        // Send the webhook request
-                        const webhookUrl = "https://discord.com/api/webhooks/1322834666646016011/nfD1sdp4RsvgmItgJJSWL-vWzqMni0b_2UT-y_snw4p4Dkeu9iCC5yNLMfCwGl5PmLsK";
-                        await fetch(webhookUrl, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(embed),
-                        });
-
-                        alert("Submission sent successfully!");
-                    } catch (error) {
-                        console.error("Error sending webhook:", error);
-                        alert("There was an error sending your submission. Please try again.");
-                    }
-                });
-
-            </script>
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300">
+                <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-purple-600 dark:text-purple-400">Join Our Discord</h2>
+                <p class="mb-4">Connect with our community:</p>
+                <iframe src="https://discord.com/widget?id=1317605088558190602"
+                        width="100%" 
+                        height="300" 
+                        allowtransparency="true" 
+                        frameborder="0" 
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                        class="rounded-lg">
+                </iframe>
+            </div>
         </div>
+
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 sm:p-8 shadow-lg">
+            <h2 class="text-xl sm:text-2xl font-semibold mb-6 text-center text-purple-600 dark:text-purple-400">Contact Our Team Directly</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="text-center p-4 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300">
+                    <img src="https://cdn.discordapp.com/avatars/1094475489734819840/37da8f0271f018153b22e27bf6d05f88.webp" alt="Team Member 1" class="w-20 sm:w-24 h-20 sm:h-24 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold text-lg sm:text-xl mb-2">Coder-soft</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Founder</p>
+                    <a href="https://discordapp.com/users/1094475489734819840" 
+                       target="_blank"
+                       class="inline-block bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full transition duration-300">
+                        Message on Discord
+                    </a>
+                </div>
+
+                <div class="text-center p-4 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300">
+                    <img src="https://cdn.discordapp.com/avatars/789997917661560862/affc7d403052f36ae9d5b80e4ee048da.webp" alt="Team Member 2" class="w-20 sm:w-24 h-20 sm:h-24 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold text-lg sm:text-xl mb-2">Clover</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Project Lead</p>
+                    <a href="https://discordapp.com/users/789997917661560862" 
+                       target="_blank"
+                       class="inline-block bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full transition duration-300">
+                        Message on Discord
+                    </a>
+                </div>
+
+                <div class="text-center p-4 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300">
+                    <img src="https://cdn.discordapp.com/avatars/877933841170432071/ee01c70b15d37af8994abfe8c4bd4509.webp" alt="Team Member 3" class="w-20 sm:w-24 h-20 sm:h-24 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold text-lg sm:text-xl mb-2">Yamura</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Lead Developer</p>
+                    <a href="https://discordapp.com/users/877933841170432071" 
+                       target="_blank"
+                       class="inline-block bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full transition duration-300">
+                        Message on Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
     </main>
     <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
         <p class="pt-5">Website made by <u>Team Wheels</u><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
