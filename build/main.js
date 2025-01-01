@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                     <h3 class="text-base sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${displayTitle}</h3>
-                    <a href="${asset.url}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
+                    <a href="../.netlify/functions-internal/download?url=${asset.url}&filename=${originalTitle}.${asset.extension}" target="_blank" download="${originalTitle}.${asset.extension}" class="inline-block bg-secondary text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-[#8a74f4] transition-colors">
                         Download
                     </a>
                 </div>

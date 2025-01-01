@@ -1306,6 +1306,10 @@ video {
   height: 6rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1372,6 +1376,10 @@ video {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-7 {
+  width: 1.75rem;
 }
 
 .max-w-4xl {
@@ -2298,6 +2306,11 @@ video {
   background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-primary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:text-gray-600:hover {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity, 1));
@@ -2791,6 +2804,10 @@ video {
 @media (min-width: 1024px) {
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
