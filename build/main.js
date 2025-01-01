@@ -28,12 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         music: [],
         fonts: [],
         presets: [],
-        minecraft: [{
-            title: "Minecraft Item And Blocks Icons",
-            description: "Browse and download Minecraft item icons",
-            url: "https://mcicons.ccleaf.com/",
-            tags: "minecraft icons items blocks"
-        }]
+        minecraft: []
     };
 
     // for the presets (to filter like the 2 categories yk)
@@ -330,24 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
-    function createMinecraftCard() {
-        return `
-            <div class="col-span-full">
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                    <div class="bg-gradient-to-r from-[#9b87f5] to-[#8a74f4] p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Minecraft Icons & Assets</h2>
-                        <p class="text-white/80">Browse and download Minecraft related assets and icons</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="w-full rounded-lg overflow-hidden" style="height: 600px;">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
     function renderAssets(filteredAssets = assets[currentTab]) {
         if (!filteredAssets || filteredAssets.length === 0) {
             assetGrid.innerHTML = `
@@ -361,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         assetGrid.innerHTML = filteredAssets.map(asset => {
             switch(currentTab) {
                 case 'images':
+                case 'minecraft':
                     return createImageCard(asset);
                 case 'videos':
                     return createVideoCard(asset);
@@ -371,8 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return createFontCard(asset);
                 case 'presets':
                     return createPresetCard(asset);
-                case 'minecraft':
-                    return createMinecraftCard(asset);
                 default:
                     return createImageCard(asset);
             }
@@ -443,11 +419,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     player.wavesurfer.destroy();
                 });
                 audioPlayers.clear();
-                if (currentTab === 'minecraft') {
-                    renderAssets(assets.minecraft);
-                } else {
-                    fetchAssets(currentTab);
-                }
+                fetchAssets(currentTab);
+                
             }
         });
     });
