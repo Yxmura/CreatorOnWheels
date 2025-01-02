@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createImageCard(asset) {
     return `
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] h-[400px] flex flex-col">
-            <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+            <div class="relative h-40 overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                 <div class="w-full h-full flex items-center justify-center">
                     <img 
                         src="${asset.url}" 
@@ -460,18 +460,37 @@ function renderPagination() {
     pagination.innerHTML = "";
     const totalPages = Math.ceil(currentAssets.length / itemsPerPage);
 
+    // Pagination container
+    const paginationContainer = document.createElement("div");
+    paginationContainer.className = "flex justify-center items-center space-x-2 w-full";
+
+    // Previous Button
     const prevButton = document.createElement("button");
     prevButton.textContent = "<";
-    prevButton.className = "px-3 py-1 mx-1 bg-blue-500 text-white rounded hover:bg-blue-700";
+    prevButton.className = `px-3 py-1 mx-1 bg-blue-500 text-white rounded hover:bg-blue-700 ${
+        currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+    }`;
     prevButton.disabled = currentPage === 1;
     prevButton.onclick = () => {
         currentPage--;
         updateView();
     };
 
-    pagination.appendChild(prevButton);
+    paginationContainer.appendChild(prevButton);
 
-    for (let i = 1; i <= totalPages; i++) {
+    // Determine the range of pages to display
+    let startPage = Math.max(1, currentPage - 1);
+    let endPage = Math.min(totalPages, currentPage + 1);
+
+    // Ensure three pages are visible when possible
+    if (currentPage === 1 && totalPages > 1) {
+        endPage = Math.min(3, totalPages);
+    } else if (currentPage === totalPages && totalPages > 1) {
+        startPage = Math.max(1, totalPages - 2);
+    }
+
+    // Render page buttons
+    for (let i = startPage; i <= endPage; i++) {
         const pageButton = document.createElement("button");
         pageButton.textContent = i;
         pageButton.className = `px-3 py-1 mx-1 rounded hover:bg-blue-700 ${
@@ -482,25 +501,31 @@ function renderPagination() {
             updateView();
         };
 
-        pagination.appendChild(pageButton);
+        paginationContainer.appendChild(pageButton);
     }
 
+    // Next Button
     const nextButton = document.createElement("button");
     nextButton.textContent = ">";
-    nextButton.className = "px-3 py-1 mx-1 bg-blue-500 text-white rounded hover:bg-blue-700";
+    nextButton.className = `px-3 py-1 mx-1 bg-blue-500 text-white rounded hover:bg-blue-700 ${
+        currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+    }`;
     nextButton.disabled = currentPage === totalPages;
     nextButton.onclick = () => {
         currentPage++;
         updateView();
     };
 
-    pagination.appendChild(nextButton);
+    paginationContainer.appendChild(nextButton);
+
+    // Append paginationContainer to the main pagination element
+    pagination.appendChild(paginationContainer);
 }
 
-    function updateView() {
-        renderAssets();
-        renderPagination();
-    }
+function updateView() {
+    renderAssets();
+    renderPagination();
+}
 
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
