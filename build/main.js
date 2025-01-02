@@ -63,9 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const type = button.dataset.type;
             button.classList.toggle('opacity-50');
             presetFilters[type] = !presetFilters[type];
-            if (currentTab === 'presets') {
-                renderAssets(filterPresets());
-            }
+            
+            // Filter and render assets immediately when filter changes
+            const filteredAssets = filterPresets(assets.presets);
+            currentAssets = filteredAssets;
+            currentPage = 1;
+            updateView();
         });
     });
 
@@ -106,19 +109,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchPresets() {
         try {
-            const davinciPresets = await fetchContentsRecursively('presets/davinci');
-            const premierePresets = await fetchContentsRecursively('presets/premiere');
+            // Fetch DaVinci presets
+            const davinciResponse = await fetch(`${githubApiUrl}presets/davinci`);
+            if (!davinciResponse.ok) throw new Error('Failed to fetch DaVinci presets');
+            const davinciContents = await davinciResponse.json();
+            
+            // Fetch Premiere presets
+            const premiereResponse = await fetch(`${githubApiUrl}presets/premiere`);
+            if (!premiereResponse.ok) throw new Error('Failed to fetch Premiere presets');
+            const premiereContents = await premiereResponse.json();
+    
+            // Process both preset types
+            const davinciPresets = davinciContents.map(item => ({
+                title: item.name.replace(/\.[^/.]+$/, ""),
+                url: item.download_url,
+                type: 'presets',
+                extension: item.name.split('.').pop().toLowerCase(),
+                presetType: 'davinci'
+            }));
+    
+            const premierePresets = premiereContents.map(item => ({
+                title: item.name.replace(/\.[^/.]+$/, ""),
+                url: item.download_url,
+                type: 'presets',
+                extension: item.name.split('.').pop().toLowerCase(),
+                presetType: 'premiere'
+            }));
+    
+            // Store all presets
             assets.presets = [...davinciPresets, ...premierePresets];
-            renderAssets(filterPresets());
+            
+            // Apply current filters
+            currentAssets = filterPresets(assets.presets);
+            currentPage = 1;
+            updateView();
         } catch (error) {
             console.error('Error fetching presets:', error);
+            assetContainer.innerHTML = `
+                <div class="col-span-full text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Error loading presets, please try again later.</h2>
+                </div>
+            `;
         }
     }
 
-    function filterPresets() {
-        return assets.presets.filter(asset => 
-            presetFilters[asset.presetType]
-        );
+    function filterPresets(presets) {
+        // Only show presets where their presetType's filter is true
+        return presets.filter(asset => presetFilters[asset.presetType]);
     }
 
     const itemsPerPage = 9;
@@ -460,28 +497,48 @@ function renderPagination() {
     pagination.appendChild(nextButton);
 }
 
-function updateView() {
-    renderAssets();
-    renderPagination();
-}
+    function updateView() {
+        renderAssets();
+        renderPagination();
+    }
 
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
         const searchTerms = searchTerm.split(/\s+/).filter(term => term.length > 1);
-
+    
         if (searchTerms.length === 0) {
-            renderAssets();
-            return;
+            // Reset to current filtered view
+            if (currentTab === 'presets') {
+                currentAssets = filterPresets(assets.presets);
+            } else {
+                currentAssets = currentAssets;
+            }
+        } else {
+            if (currentTab === 'presets') {
+                // Filter presets based on current preset filters and search terms
+                const filteredByType = assets.presets.filter(asset => 
+                    presetFilters[asset.presetType]
+                );
+                
+                currentAssets = filteredByType.filter(asset => {
+                    return searchTerms.every(term =>
+                        asset.title.toLowerCase().includes(term) ||
+                        (asset.tags && asset.tags.toLowerCase().includes(term))
+                    );
+                });
+            } else {
+                // Search through current category assets
+                currentAssets = currentAssets.filter(asset => {
+                    return searchTerms.every(term =>
+                        asset.title.toLowerCase().includes(term) ||
+                        (asset.tags && asset.tags.toLowerCase().includes(term))
+                    );
+                });
+            }
         }
-
-        const filteredAssets = assets[currentTab].filter(asset => {
-            return searchTerms.some(term =>
-                asset.title.toLowerCase().includes(term) ||
-                asset.tags.toLowerCase().includes(term)
-            );
-        });
-
-        renderAssets(filteredAssets);
+    
+        currentPage = 1;
+        updateView();
     });
 
     fetchAssets(currentTab);
