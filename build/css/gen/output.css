@@ -947,6 +947,14 @@ video {
   }
 }
 
+.motion-preset-focus {
+  --motion-origin-blur: 5px;
+  --motion-origin-opacity: 0;
+  --motion-opacity-in-animation: motion-opacity-in calc(var(--motion-opacity-duration) * var(--motion-opacity-perceptual-duration-multiplier)) var(--motion-opacity-timing) var(--motion-opacity-delay) both;
+  --motion-filter-in-animation: motion-filter-in calc(var(--motion-filter-duration) * var(--motion-filter-perceptual-duration-multiplier)) var(--motion-filter-timing) var(--motion-filter-delay) both;
+  animation: var(--motion-all-loop-and-enter-animations);
+}
+
 .motion-preset-expand {
   --motion-origin-scale-x: 50%;
   --motion-origin-scale-y: 50%;
@@ -2131,6 +2139,14 @@ video {
 
 .motion-duration-\[0\.63s\]\/rotate {
   --motion-rotate-duration: 0.63s;
+}
+
+.motion-duration-2000 {
+  --motion-duration: 2000ms;
+}
+
+.motion-duration-1500 {
+  --motion-duration: 1500ms;
 }
 
 .\[transform\:skew\(-12deg\)_translateX\(-100\%\)\] {
