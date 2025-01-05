@@ -134,6 +134,52 @@ By email: info.creatoronwheels@proton.me or Contact Us On <a href="contact.html"
     <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
         <p class="pt-5">Website made by <a href="./contact.html"><u>Team Wheels</u></a><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
         
+        <div class="pt-2">
+            <button 
+                onclick="window.location.href='./policy.html';" 
+                class="btn-style group mt-5 relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md bg-white sm:bg-neutral-300 opacity-75 px-5 font-medium text-neutral-900 transition hover:scale-105"
+                aria-label="Privacy Policy"
+            >
+                <span>Privacy Policy</span>
+                <div class="absolute inset-0 flex h-full w-full justify-center transform skew-x-[-12deg] translate-x-[-100%] group-hover:duration-1000 group-hover:translate-x-[100%]">
+                    <div class="relative h-full w-6 bg-white/20"></div>
+                </div>
+            </button>
+        
+            <button 
+                onclick="window.location.href='./tos.htm';" 
+                class="btn-style group mt-5 relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md bg-white sm:bg-neutral-300 opacity-75 px-8 py-3 font-medium text-neutral-900 transition hover:scale-105"
+                aria-label="Terms of Service"
+            >
+                <span>Terms Of Service</span>
+                <div class="absolute inset-0 flex h-full w-full justify-center transform skew-x-[-12deg] translate-x-[-100%] group-hover:duration-1000 group-hover:translate-x-[100%]">
+                    <div class="relative h-full w-6 bg-white/20"></div>
+                </div>
+            </button>
+        </div>
+        
+        <!-- Add the shared styles at the end for cleaner CSS management -->
+        <style>
+            .btn-style {
+                /* Add smooth scaling, translation, rotation, opacity, and blur animations */
+                animation: scaleIn 0.35s ease-in-out, translateIn 0.53s ease-in-out, rotateIn 0.63s ease-in-out;
+            }
+        
+            @keyframes scaleIn {
+                0% { transform: scale(0.45); opacity: 0; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        
+            @keyframes translateIn {
+                0% { transform: translateX(-20%) translateY(20%); }
+                100% { transform: translateX(0) translateY(0); }
+            }
+        
+            @keyframes rotateIn {
+                0% { transform: rotate(-10deg); }
+                100% { transform: rotate(0); }
+            }
+        </style>   
     </footer>
     <script src="./scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
