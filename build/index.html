@@ -82,24 +82,28 @@
     </header>
     
     <main>
-        <button onclick="window.open('http://discord.gg/XQsN7dD7xA','_blank')" class="fixed top-1/2 left-0 transform -translate-y-1/2 bg-emerald-600 w-16 h-80 flex flex-col items-center justify-center p-2">
-            <!-- Desktop Text -->
-            <div class="text-white text-center transform rotate-90 origin-center whitespace-nowrap hidden sm:block">
-              <strong>Reminder:</strong> Join our Discord.
+        <div class="bg-blue-800">
+            <div class="px-4 py-4 max-w-md mx-auto flex items-center">
+              <!-- Text for larger screens -->
+              <a href="https://discord.com/invite/c822quB7" target="_blank" rel="noopener noreferrer" 
+                 class="hidden sm:flex flex-grow text-white leading-relaxed font-quicksand no-underline">
+                join our&nbsp;<strong>Discord</strong>
+              </a>
+              <!-- Icon for mobile -->
+              <a href="https://discord.com/invite/c822quB7" target="_blank" rel="noopener noreferrer" 
+                 class="sm:hidden flex-grow text-white flex items-center">
+                <span class="material-icons">
+                  notifications
+                </span>
+              </a>
+              <!-- Close button -->
+              <button class="bg-none border-none cursor-pointer text-white" type="button" onclick="this.closest('div').style.display = 'none'">
+                <span class="material-icons">
+                  close
+                </span>
+              </button>
             </div>
-            <!-- Mobile Icon (SVG) -->
-            <div class="sm:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" class="w-10 h-10 fill-current text-white">
-                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-              </svg>
-            </div>
-            <!-- Close Button -->
-            <span class="absolute top-2 right-2 bg-none border-none cursor-pointer text-white" id="close-banner">
-              <span class="material-icons">
-                close
-              </span>
-            </span>
-          </button>
+          </div> 
         <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center"> <!-- Blue CTA Banner -->
           <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-300">Unleash Your Creativity</h1>
           <p class="text-white text-lg text-center pt-10 dark:text-gray-300 font-semibold">Access thousands of free, high-quality assets for your content creation needs</p>
@@ -115,28 +119,28 @@
           <div class="flex flex-wrap gap-5 justify-center p-5">
             <!-- Card music -->
             <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3 motion-preset-focus " height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M400-120q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T480-418v-422h240v160H560v400q0 66-47 113t-113 47Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3" height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M400-120q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T480-418v-422h240v160H560v400q0 66-47 113t-113 47Z"/></svg>
               <h3 class="text-lg font-semibold dark:text-primary">Music</h3>
               <p class="text-sm text-gray-700 dark:text-gray-300">Free music assets for your projects.</p>
             </div>
         
             <!-- Card fonts -->
             <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3 motion-preset-focus" height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M280-160v-520H80v-120h520v120H400v520H280Zm360 0v-320H520v-120h360v120H760v320H640Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3" height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M280-160v-520H80v-120h520v120H400v520H280Zm360 0v-320H520v-120h360v120H760v320H640Z"/></svg>
               <h3 class="text-lg font-semibold dark:text-primary">Fonts</h3>
               <p class="text-sm text-gray-700 dark:text-gray-300">Stylish fonts to enhance your designs.</p>
             </div>
         
             <!-- Card sfx -->
             <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3 motion-preset-focus " height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3 " height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z"/></svg>
               <h3 class="text-lg font-semibold dark:text-primary">SFX</h3>
               <p class="text-sm text-gray-700 dark:text-gray-300">High-quality sound effects for all needs.</p>
             </div>
         
             <!-- Card tn assets -->
             <div class="bg-gray-100 motion-preset-expand  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md w-52 p-5 text-center hover:scale-105 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3 motion-preset-focus " height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-3  " height="24px" viewBox="0 -960 960 960" width="24px" fill="#514AE6"><path d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"/></svg>
               <h3 class="text-lg font-semibold dark:text-primary">Thumbnail Assets</h3>
               <p class="text-sm text-gray-700 dark:text-gray-300">Templates and assets for stunning thumbnails.</p>
             </div>
@@ -170,6 +174,13 @@
                     <div class="relative h-full w-6 bg-white/20"></div>
                 </div>
             </button>
+            <div class="fixed bottom-6 right-6">
+                <a href="https://www.buymeacoffee.com/creatoronwheels" target="_blank" rel="noopener noreferrer"
+                    class="bg-gradient-to-r from-[#6062EF] to-[#534DE7] text-white font-medium rounded-md px-4 py-2 flex items-center justify-center hover:bg-yellow-600 transition duration-300 ease-in-out shadow-lg">
+                  <span class="hidden lg:block">Buy us a coffee</span>
+                  <span class="text-lg lg:ml-2 h-6 w-5"><img src="https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg"></span>
+                </a>
+            </div>
         </div>
         
         <!-- Add the shared styles at the end for cleaner CSS management -->
@@ -193,13 +204,11 @@
                 0% { transform: rotate(-10deg); }
                 100% { transform: rotate(0); }
             }
-        </style>        
-
-
+        </style>
         </div>
     </footer>    
     <script src="./scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="creatoronwheels" data-description="Support me on Buy me a coffee!" data-message="If you enjoy our project, or find it useful, consider donating. It's the only way for us to make money!" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    <!-- <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="creatoronwheels" data-description="Support me on Buy me a coffee!" data-message="If you enjoy our project, or find it useful, consider donating. It's the only way for us to make money!" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script> -->
 </body>
 </html>
