@@ -7,6 +7,7 @@ The ultimate all-in-one content-creation tool. Thousands of assets for graphic d
 
 - [@Coder-Soft - Founder/Project Lead](https://www.github.com/coder-soft)
 - [@clover - project lead](https://www.youtube.com/@Yxmura)
+- [@IDoTheHax - Major Fullstack Developer](https://idothehax.github.io/)
 - [@yamura - lead dev](https://www.youtube.com/@Yxmura)
 - [@claw - PR lead](https://www.youtube.com/channel/UC9vd3qD2LRa1PEe2tDjZjfQ)
 
@@ -19,4 +20,4 @@ The ultimate all-in-one content-creation tool. Thousands of assets for graphic d
 
 ### Is there support?
 
-Yes, join our Discord server to get help.
+Yes, join our [Discord](https://discord.gg/K2uubsRx3k) server to get help.
