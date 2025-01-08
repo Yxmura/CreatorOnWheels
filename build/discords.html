@@ -221,14 +221,20 @@
               </div>
           </button>
       </div>
-      <div class="fixed bottom-6 right-6">
+      <div id="coffee-banner" class="fixed bottom-6 right-6">
+        <button 
+          class="absolute -top-3 -right-3 bg-right text-black rounded-full p-1 shadow-lg"
+          onclick="document.getElementById('coffee-banner').style.display = 'none'">
+          <span class="material-icons">close</span>
+        </button>
         <a href="https://www.buymeacoffee.com/creatoronwheels" target="_blank" rel="noopener noreferrer"
             class="bg-gradient-to-r from-[#6062EF] to-[#534DE7] text-white font-medium rounded-md px-4 py-2 flex items-center justify-center hover:bg-yellow-600 transition duration-300 ease-in-out shadow-lg">
           <span class="hidden lg:block">Buy us a coffee</span>
-          <span class="text-lg lg:ml-2 h-6 w-5"><img src="https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg"></span>
+          <span class="text-lg lg:ml-2 h-6 w-5">
+            <img src="https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg" alt="Coffee Cup">
+          </span>
         </a>
-    </div>
-</div>
+      </div>
       <!-- Add the shared styles at the end for cleaner CSS management -->
       <style>
           .btn-style {
