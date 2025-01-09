@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="sm:scroll-smooth" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creator On Wheels - Copyright Checker">
+    <link rel="icon" href="./assets/COW.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="./css/gen/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css"/>
+    <title>Copyright Checker - Creator On Wheels</title>
+    <style>
+        button:disabled {
+            background-color: #d1d5db; /* Gray background for disabled state */
+            color: #9ca3af; /* Gray text for disabled state */
+            cursor: not-allowed; /* Show not-allowed cursor */
+        }
+
+        .embed-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background-color: #000; /* Fallback color */
+        }
+
+        .embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900">
+<header>
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="./index.html" class="flex items-center space-x-2">
+                <img src="./assets/COW.png" class="h-8" alt="COW Logo"/>
+                <span class="text-2xl font-semibold whitespace-nowrap dark:text-white">Creator On Wheels</span>
+            </a>
+            <!-- Add other navigation links as needed -->
+        </div>
+    </nav>
+</header>
+<main class="bg-slate-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-xl font-bold mb-4">Check Copyright Status</h2>
+        <div class="flex items-center space-x-2 mb-4">
+            <input type="text" id="copyrightQuery" class="flex-1 px-4 py-2 border border-gray-300 rounded" placeholder="Enter YouTube URL or song title">
+            <button id="checkCopyrightBtn" class="bg-blue-500 text-white px-4 py-2 rounded" disabled>Check Copyright</button>
+        </div>
+        <div id="copyrightStatus" class="mt-4"></div>
+        <div id="videoEmbed" class="mt-4"></div> <!-- Container for the embedded video -->
+    </div>
+</main>
+<footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
+    <p class="pt-5">Website made by <a href="./contact.html"><u>Team Wheels</u></a><br>&copy; 2024 Creator On Wheels</p>
+</footer>
+
+<script>
+    const queryInput = document.getElementById('copyrightQuery');
+    const checkCopyrightBtn = document.getElementById('checkCopyrightBtn');
+
+    // Enable button only if there's input
+    queryInput.addEventListener('input', () => {
+        checkCopyrightBtn.disabled = !queryInput.value.trim();
+    });
+
+    checkCopyrightBtn.addEventListener('click', async () => {
+        const query = queryInput.value.trim();
+
+        // Disable the button
+        checkCopyrightBtn.disabled = true;
+
+        try {
+            const response = await fetch('http://localhost:5000/api/check_copyright', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query })
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                document.getElementById('copyrightStatus').innerHTML = `<p class="text-red-600">Error: ${data.error}</p>`;
+                document.getElementById('videoEmbed').innerHTML = ''; // Clear previous video embed
+            } else {
+                document.getElementById('copyrightStatus').innerHTML = `
+                    <div class="border p-4 rounded-lg bg-white shadow-md dark:bg-gray-800">
+                        <h3 class="font-bold text-lg">${data.title}</h3>
+                        <p>Status: ${data.is_copyrighted ? '<span class="text-red-600">Copyrighted</span>' : '<span class="text-green-600">Not Copyrighted</span>'}</p>
+                        ${data.download_link ? `<a href="${data.download_link}" class="text-blue-500 underline">Download Link</a>` : ''}
+                    </div>
+                `;
+                
+                // Embed the YouTube video
+                const videoId = new URL(query).searchParams.get("v"); // Extract video ID from URL
+                if (videoId) {
+                    document.getElementById('videoEmbed').innerHTML = `
+                        <div class='embed-container'>
+                            <iframe src='https://www.youtube.com/embed/${videoId}' frameborder='0' allowfullscreen></iframe>
+                        </div>`;
+                } else {
+                    document.getElementById('videoEmbed').innerHTML = `<p>Invalid YouTube URL.</p>`;
+                }
+            }
+        } catch (error) {
+            document.getElementById('copyrightStatus').innerHTML = `<p class="text-red-600">An error occurred. Please try again later.</p>`;
+            document.getElementById('videoEmbed').innerHTML = ''; // Clear any existing video embed
+        } finally {
+            // Re-enable the button after the request completes
+            checkCopyrightBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

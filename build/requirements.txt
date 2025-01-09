@@ -1,0 +1,7 @@
+discord.py
+Flask
+requests
+yt-dlp
+spotipy
+python-dotenv
+Mako==1.2.4
