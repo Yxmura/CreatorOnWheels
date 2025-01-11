@@ -1610,6 +1610,10 @@ video {
   border-width: 2px;
 }
 
+.border-\[1px\] {
+  border-width: 1px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1653,6 +1657,11 @@ video {
 
 .border-transparent {
   border-color: transparent;
+}
+
+.border-\[\#262626\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(38 38 38 / var(--tw-border-opacity, 1));
 }
 
 .bg-black {
