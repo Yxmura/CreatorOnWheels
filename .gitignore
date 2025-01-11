@@ -29,3 +29,7 @@ git/
 
 # Local Netlify folder
 .netlify
+
+#py stuff
+/build/requirements.txt
+/src/api.py

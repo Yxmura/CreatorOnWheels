@@ -7,6 +7,7 @@
     <link rel="icon" href="./assets/COW.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link href="./css/gen/output.css" rel="stylesheet">
+    <script src="https://apis.google.com/js/api.js"></script>
     <link rel="stylesheet" href="./styles.css"/>
     <title>Copyright Checker - Creator On Wheels</title>
     <style>
@@ -50,74 +51,285 @@
     <div class="container mx-auto px-4 py-8">
         <h2 class="text-xl font-bold mb-4">Check Copyright Status</h2>
         <div class="flex items-center space-x-2 mb-4">
-            <input type="text" id="copyrightQuery" class="flex-1 px-4 py-2 border border-gray-300 rounded" placeholder="Enter YouTube URL or song title">
-            <button id="checkCopyrightBtn" class="bg-blue-500 text-white px-4 py-2 rounded" disabled>Check Copyright</button>
+            <input type="text" id="copyrightQuery" class="flex-1 px-4 py-2 border border-gray-300 rounded" 
+                placeholder="Enter YouTube URL or song title">
+            <button id="checkCopyrightBtn" class="bg-blue-500 text-white px-4 py-2 rounded">
+                Check Copyright
+            </button>
         </div>
         <div id="copyrightStatus" class="mt-4"></div>
-        <div id="videoEmbed" class="mt-4"></div> <!-- Container for the embedded video -->
+        <div id="videoEmbed" class="mt-4"></div>
     </div>
 </main>
+
+<script>
+    const YOUTUBE_API_KEY = 'AIzaSyDIpQhj1EcX1Omz6b7gRoLutAkg-Rn3zNU';
+    const SPOTIFY_CLIENT_ID = '51730bf9958543ca85198608cd161cb5';
+    const SPOTIFY_CLIENT_SECRET = '0f79ba30e7154cfd92d8ec7cb7ed7cfb';
+    
+    let spotifyAccessToken = null;
+    let youtubeAPIReady = false;
+
+    // Initialize yt API
+    async function initYouTubeAPI() {
+        return new Promise((resolve, reject) => {
+            gapi.load('client', async () => {
+                try {
+                    await gapi.client.init({
+                        apiKey: YOUTUBE_API_KEY,
+                        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+                    });
+                    youtubeAPIReady = true;
+                    resolve();
+                } catch (error) {
+                    console.error('Error initializing YouTube API:', error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    window.onload = async () => {
+        try {
+            await initYouTubeAPI();
+            await getSpotifyToken();
+        } catch (error) {
+            console.error('Error initializing APIs:', error);
+        }
+    };
+    
+    // Get Spotify access token
+    async function getSpotifyToken() {
+        try {
+            const response = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Basic ' + btoa(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET)
+                },
+                body: 'grant_type=client_credentials'
+            });
+            const data = await response.json();
+            spotifyAccessToken = data.access_token;
+        } catch (error) {
+            console.error('Error getting Spotify token:', error);
+        }
+    }
+    
+    // Format date to string
+    function formatDate(dateString) {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+
+    // Get Spotify track info
+    async function searchSpotifyTracks(query) {
+        try {
+            const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`, {
+                headers: {
+                    'Authorization': `Bearer ${spotifyAccessToken}`
+                }
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error searching Spotify:', error);
+            return null;
+        }
+    }
+
+    // Get Spotify album
+    async function getSpotifyAlbum(albumId) {
+        try {
+            const response = await fetch(`https://api.spotify.com/v1/albums/${albumId}`, {
+                headers: {
+                    'Authorization': `Bearer ${spotifyAccessToken}`
+                }
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error getting album:', error);
+            return null;
+        }
+    }
+    
+    // Extract YouTube video ID from URL
+    function getYouTubeVideoId(url) {
+            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+        
+        // Check YouTube video copyright info
+        async function getYouTubeInfo(url) {
+            if (!youtubeAPIReady) {
+                return { error: 'YouTube API not yet initialized. Please try again in a moment.' };
+            }
+
+            const videoId = getYouTubeVideoId(url);
+            if (!videoId) return { error: 'Invalid YouTube URL' };
+            
+            try {
+                const response = await gapi.client.youtube.videos.list({
+                    part: 'snippet,status',
+                    id: videoId
+                });
+                
+                if (!response.result.items || response.result.items.length === 0) {
+                    return { error: 'Video not found' };
+                }
+
+                const video = response.result.items[0];
+                const description = video.snippet.description.toLowerCase();
+                const title = video.snippet.title.toLowerCase();
+                
+                const isCreativeCommons = description.includes('creative commons') || 
+                                        video.status.license === 'creativeCommons';
+                const nocopyrightTerms = ['no copyright', 'free to use', 'royalty-free'];
+                const containsNoCopyright = nocopyrightTerms.some(term => 
+                    description.includes(term) || title.includes(term)
+                );
+                
+                return {
+                    title: video.snippet.title,
+                    is_copyrighted: !(isCreativeCommons || containsNoCopyright),
+                    license: video.status.license || 'Standard YouTube License',
+                    url: url
+                };
+            } catch (error) {
+                return { error: 'Error fetching YouTube data: ' + error.message };
+            }
+        }
+    
+    // Search Spotify track info
+    async function searchSpotifyInfo(query) {
+        if (!spotifyAccessToken) {
+            await getSpotifyToken();
+        }
+
+        try {
+            const searchResults = await searchSpotifyTracks(query);
+            
+            if (searchResults?.tracks?.items?.length > 0) {
+                const track = searchResults.tracks.items[0];
+                const album = await getSpotifyAlbum(track.album.id);
+                
+                const copyrightText = album.copyrights
+                    .map(c => c.text.toLowerCase())
+                    .join(' ');
+                const isCreativeCommons = copyrightText.includes('creative commons') || 
+                                       copyrightText.includes('public domain');
+                
+                return {
+                    title: track.name,
+                    artist: track.artists.map(artist => artist.name).join(', '),
+                    album: track.album.name,
+                    releaseDate: track.album.release_date,
+                    albumImage: track.album.images[0]?.url,
+                    is_copyrighted: !isCreativeCommons,
+                    spotify_url: track.external_urls.spotify,
+                    preview_url: track.preview_url
+                };
+            }
+            return { error: 'No information found.' };
+        } catch (error) {
+            return { error: 'Error fetching Spotify data: ' + error.message };
+        }
+    }
+    
+    // Display results
+    function displayResults(result) {
+        const statusDiv = document.getElementById('copyrightStatus');
+        const embedDiv = document.getElementById('videoEmbed');
+        
+        if (result.error) {
+            statusDiv.innerHTML = `<div class="text-red-500">${result.error}</div>`;
+            embedDiv.innerHTML = '';
+            return;
+        }
+        
+        const copyrightStatus = result.is_copyrighted ? 
+            '<span class="text-red-500">Copyrighted</span>' : 
+            '<span class="text-green-500">May be free to use</span>';
+
+        if (result.spotify_url) {
+            // Spotify result
+            statusDiv.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+                    <div class="flex items-start space-x-4">
+                        ${result.albumImage ? `
+                            <img src="${result.albumImage}" alt="Album Cover" 
+                                 class="w-32 h-32 object-cover rounded shadow">
+                        ` : ''}
+                        <div class="flex-1 text-left">
+                            <p class="font-bold text-xl mb-1">${result.title}</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-1">Artist: ${result.artist}</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-1">Album: ${result.album}</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-2">Release Date: ${formatDate(result.releaseDate)}</p>
+                            <p class="mb-2">Status: ${copyrightStatus}</p>
+                            <a href="${result.spotify_url}" 
+                               class="text-blue-500 hover:underline block mb-2" 
+                               target="_blank">
+                                View on Spotify
+                            </a>
+                            ${result.preview_url ? `
+                                <audio controls class="w-full mt-2">
+                                    <source src="${result.preview_url}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            embedDiv.innerHTML = '';
+        } else {
+            // YouTube result (previous format)
+            statusDiv.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+                    <p class="font-bold">${result.title}</p>
+                    <p>Status: ${copyrightStatus}</p>
+                    ${result.license ? `<p>License: ${result.license}</p>` : ''}
+                    <p>URL: <a href="${result.url}" 
+                              class="text-blue-500 hover:underline" 
+                              target="_blank">
+                        View Original
+                    </a></p>
+                </div>
+            `;
+            
+            if (result.url && getYouTubeVideoId(result.url)) {
+                embedDiv.innerHTML = `
+                    <iframe width="560" height="315" 
+                        src="https://www.youtube.com/embed/${getYouTubeVideoId(result.url)}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            }
+        }
+    }
+    
+    // Event listener remains the same
+    document.getElementById('checkCopyrightBtn').addEventListener('click', async () => {
+        const query = document.getElementById('copyrightQuery').value.trim();
+        if (!query) return;
+        
+        let result;
+        if (query.includes('youtube.com') || query.includes('youtu.be')) {
+            result = await getYouTubeInfo(query);
+        } else {
+            result = await searchSpotifyInfo(query);
+        }
+        
+        displayResults(result);
+    });
+</script>
 <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
     <p class="pt-5">Website made by <a href="./contact.html"><u>Team Wheels</u></a><br>&copy; 2024 Creator On Wheels</p>
 </footer>
-
-<script>
-    const queryInput = document.getElementById('copyrightQuery');
-    const checkCopyrightBtn = document.getElementById('checkCopyrightBtn');
-
-    // Enable button only if there's input
-    queryInput.addEventListener('input', () => {
-        checkCopyrightBtn.disabled = !queryInput.value.trim();
-    });
-
-    checkCopyrightBtn.addEventListener('click', async () => {
-        const query = queryInput.value.trim();
-
-        // Disable the button
-        checkCopyrightBtn.disabled = true;
-
-        try {
-            const response = await fetch('http://localhost:5000/api/check_copyright', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query })
-            });
-
-            const data = await response.json();
-
-            if (data.error) {
-                document.getElementById('copyrightStatus').innerHTML = `<p class="text-red-600">Error: ${data.error}</p>`;
-                document.getElementById('videoEmbed').innerHTML = ''; // Clear previous video embed
-            } else {
-                document.getElementById('copyrightStatus').innerHTML = `
-                    <div class="border p-4 rounded-lg bg-white shadow-md dark:bg-gray-800">
-                        <h3 class="font-bold text-lg">${data.title}</h3>
-                        <p>Status: ${data.is_copyrighted ? '<span class="text-red-600">Copyrighted</span>' : '<span class="text-green-600">Not Copyrighted</span>'}</p>
-                        ${data.download_link ? `<a href="${data.download_link}" class="text-blue-500 underline">Download Link</a>` : ''}
-                    </div>
-                `;
-                
-                // Embed the YouTube video
-                const videoId = new URL(query).searchParams.get("v"); // Extract video ID from URL
-                if (videoId) {
-                    document.getElementById('videoEmbed').innerHTML = `
-                        <div class='embed-container'>
-                            <iframe src='https://www.youtube.com/embed/${videoId}' frameborder='0' allowfullscreen></iframe>
-                        </div>`;
-                } else {
-                    document.getElementById('videoEmbed').innerHTML = `<p>Invalid YouTube URL.</p>`;
-                }
-            }
-        } catch (error) {
-            document.getElementById('copyrightStatus').innerHTML = `<p class="text-red-600">An error occurred. Please try again later.</p>`;
-            document.getElementById('videoEmbed').innerHTML = ''; // Clear any existing video embed
-        } finally {
-            // Re-enable the button after the request completes
-            checkCopyrightBtn.disabled = false;
-        }
-    });
-</script>
 </body>
 </html>
