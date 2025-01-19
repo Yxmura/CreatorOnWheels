@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./assets/COW.ico" type="image/x-icon">
     <meta name="logo" content="./assets/COW.ico">
-    <meta name="description" content="Creator On Wheels - A Library of Free Tutorials On How to Become a Better Content Creator">
+    <meta name="description" content="Creator On Wheels - Contact Us So We can Here Your Questions or Feedback">
+    <link rel="icon" href="./assets/COW.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="./css/gen/output.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <title>Creator On Wheels</title>
@@ -136,27 +138,105 @@
         </nav>
     </header>  
     <main>
+        <body class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+            <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center">
+                <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-300">Pattern Generator</h1>
+                <p class="text-white text-lg text-center pt-10 dark:text-gray-200 font-semibold">Create beautiful repeating patterns from your images</p>
+            </div>
+            <div class="container mx-auto px-4 py-8">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Upload Image</label>
+                            <div class="flex items-center space-x-4">
+                                <label class="flex-1 cursor-pointer bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 text-center transition-colors">
+                                    <span>Choose File</span>
+                                    <input type="file" id="imageUpload" accept="image/*" class="hidden">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Pattern Size</label>
+                            <input type="range" id="sizeControl" min="50" max="300" value="150" 
+                                   class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                            <div class="text-sm text-gray-600 dark:text-gray-400" id="sizeValue">150px</div>
+                        </div>
+                    </div>
         
-        <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center">
-            <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-300">Useful Content Creation Discord Servers</h1>
-            <p class="text-white text-lg text-center pt-10 dark:text-gray-300 font-semibold">Servers regarding all topics within content creation: unlock more assets, tools and a helpful community</p>
-        </div>
-        <div class="bg-primary dark:bg-black pt-5 pb-5 align-middle items-center space-x-6 px-5"> <!-- thumbnail section -->
-            <div>
-                <h2 class="text-center text-black dark:text-primary text-4xl font-bold">Thumbnails</h2>
-                <p class="pb-3 text-center pt-3 dark:text-gray-300 text-black">the best tutorials to make the most stunning thumbnails</p>
-                <div data-key="Thumbnail COW" class="ft" id="ft94aqas7">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+                    <div class="relative w-full" style="padding-top: 56.25%;">
+                        <div id="previewArea" 
+                             class="absolute top-0 left-0 w-full h-full rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                            <p class="text-gray-500 dark:text-gray-400">Upload an image to start</p>
+                        </div>
+                    </div>
                 </div>
-                <script src="https://cdn.fouita.com/widgets/0x1d5770.js"></script>
-            </div>
-            <div class="pt-5">
-                <h2 class="text-center text-black dark:text-primary text-4xl font-bold">Editing</h2>
-                <p class="pb-3 text-center pt-3 dark:text-gray-300 text-black">the best tutorials to make the most stunning thumbnails</p>
-                <div data-key="Editing COW" class="ft pb-2" id="ft12f6jy8">
+        
+                <div class="text-center">
+                    <button id="downloadBtn" disabled
+                            class="bg-secondary hover:bg-blue-800 text-white font-medium py-2 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        Download Pattern
+                    </button>
                 </div>
-                <script src="https://cdn.fouita.com/widgets/0x1d5e85.js"></script>
             </div>
-        </div>
+        
+            <script>
+                const imageUpload = document.getElementById('imageUpload');
+                const sizeControl = document.getElementById('sizeControl');
+                const sizeValue = document.getElementById('sizeValue');
+                const previewArea = document.getElementById('previewArea');
+                const downloadBtn = document.getElementById('downloadBtn');
+
+                let uploadedImage = null;
+
+                imageUpload.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            uploadedImage = new Image();
+                            uploadedImage.src = event.target.result;
+                            uploadedImage.onload = () => {
+                                updatePattern();
+                                downloadBtn.disabled = false;
+                            };
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                sizeControl.addEventListener('input', () => {
+                    sizeValue.textContent = `${sizeControl.value}px`;
+                    if (uploadedImage) {
+                        updatePattern();
+                    }
+                });
+
+                function updatePattern() {
+                    const size = parseInt(sizeControl.value);
+                    previewArea.innerHTML = '';
+                    previewArea.style.background = `url(${uploadedImage.src})`;
+                    previewArea.style.backgroundSize = `${size}px ${size}px`;
+                    previewArea.style.backgroundRepeat = 'repeat';
+                }
+
+                downloadBtn.addEventListener('click', () => {
+                    html2canvas(previewArea).then(canvas => {
+                        const width = 1920;
+                        const height = 1080;
+                        const finalCanvas = document.createElement('canvas');
+                        finalCanvas.width = width;
+                        finalCanvas.height = height;
+                        const ctx = finalCanvas.getContext('2d');
+                        ctx.drawImage(canvas, 0, 0, width, height);
+                        
+                        finalCanvas.toBlob(blob => {
+                            saveAs(blob, 'CreatorOnWheels_bg.png');
+                        });
+                    });
+                });
+            </script>
+</html>
     </main>
     <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
         <p class="pt-5">Website made by <a href="./contact.html"><u>Team Wheels</u></a><br>&copy; 2024 <bold>C</bold>reator <bold>O</bold>n <bold>W</bold>heels</p>
@@ -172,8 +252,8 @@
                 </div>
             </button>
         
-            <button 
-                onclick="window.location.href='./tos.htm/';" 
+            <button
+                onclick="window.location.href='./tos.html';" 
                 class="btn-style group mt-5 relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md bg-white sm:bg-neutral-300 opacity-75 px-8 py-3 font-medium text-neutral-900 transition hover:scale-105"
                 aria-label="Terms of Service"
             >
@@ -219,7 +299,6 @@
                 100% { transform: rotate(0); }
             }
         </style>   
-
     </footer>
     <script src="./scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
