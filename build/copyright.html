@@ -58,7 +58,7 @@
     
                 <!-- Logo -->
                 <a href="./index.html" class="flex items-center space-x-3 transition-transform hover:scale-105 z-20">
-                    <img src="./assets/COW.png" class="h-8 md:h-10 motion-preset-spin motion-duration-1500" alt="COW Logo" />
+                    <img src="./assets/COW.png" class="h-8 md:h-10 motion-preset-spin motion-duration-2000" alt="COW Logo" />
                     <span class="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Creator On Wheels</span>
                 </a>
     
@@ -157,24 +157,42 @@
             </div>
         </nav>
     </header>
-<main class="bg-slate-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
-    <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center"> <!-- Blue CTA Banner -->
-        <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-300">Copyright checker</h1>
-        <p class="text-white text-lg text-center pt-10 dark:text-gray-300 font-semibold">Use our advanced copyright checker to make sure your hard work won't be lost by having to repick songs after upload</p>
-      </div>
-    <div class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl text-center font-bold mb-4">Check Copyright Status</h2>
-        <div class="flex items-center space-x-2 mb-4">
-            <input type="text" id="copyrightQuery" class="flex-1 px-4 py-2 border border-gray-300 rounded" 
-                placeholder="Enter YouTube URL or song title">
-            <button id="checkCopyrightBtn" class="bg-blue-500 text-white px-4 py-2 rounded">
-                Check Copyright
-            </button>
+    <main class="bg-slate-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+        <div class="bg-gradient-to-r from-left to-right pt-40 pb-11 flex flex-col items-center"> <!-- Blue CTA Banner -->
+            <h1 class="text-primary text-6xl font-extrabold text-center dark:text-gray-300">Copyright checker</h1>
+            <p class="text-white text-lg text-center pt-10 dark:text-gray-300 font-semibold">Verify copyright status before using songs in your content</p>
         </div>
-        <div id="copyrightStatus" class="mt-4"></div>
-        <div id="videoEmbed" class="mt-4"></div>
-    </div>
-</main>
+        <!-- <div class="bg-gradient-to-r from-[#6062EF]/10 to-[#6062EF]/5 pt-20 pb-16 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-[#6062EF] mb-6">Copyright Checker</h1>
+                <p class="text-gray-600 dark:text-gray-300 text-lg md:text-xl max-w-2xl mx-auto">
+                    Verify copyright status before using songs in your content
+                </p>
+            </div>
+        </div> -->
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            <div class="backdrop-blur-lg bg-white/80 dark:bg-gray-800/80 rounded-2xl p-6 shadow-lg border border-gray-200/20 dark:border-gray-700/20">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input 
+                        type="text" 
+                        id="copyrightQuery" 
+                        class="flex-1 px-4 py-3 rounded-xl bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-[#6062EF] focus:border-transparent outline-none transition-all text-gray-800 dark:text-gray-200"
+                        placeholder="Enter YouTube URL or song title"
+                    >
+                    <button 
+                        id="checkCopyrightBtn"
+                        class="px-6 py-3 bg-[#6062EF] hover:bg-[#6062EF]/90 text-white rounded-xl font-medium transition-colors duration-200 flex items-center justify-center shadow-lg shadow-[#6062EF]/20"
+                    >
+                        Check Copyright
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="copyrightStatus" class="mt-8 space-y-4"></div>
+            <div id="videoEmbed" class="mt-8 flex justify-center"></div>
+        </div>
+    </main>
 
 <script>
     const YOUTUBE_API_KEY = 'AIzaSyDIpQhj1EcX1Omz6b7gRoLutAkg-Rn3zNU';
@@ -316,7 +334,7 @@
     async function searchSpotifyInfo(query) {
         if (!spotifyAccessToken) {
             await getSpotifyToken();
-        } // spotify shit finder
+        } 
         try {
             const searchResults = await searchSpotifyTracks(query);
             
@@ -347,89 +365,105 @@
         }
     }
     function displayResults(result) {
-        const statusDiv = document.getElementById('copyrightStatus');
-        const embedDiv = document.getElementById('videoEmbed');
-        
-        if (result.error) {
-            statusDiv.innerHTML = `<div class="text-red-500">${result.error}</div>`;
-            embedDiv.innerHTML = '';
-            return;
-        }
-        
-        const copyrightStatus = result.is_copyrighted ? 
-            '<span class="text-red-500">Probably Copyrighted</span>' : 
-            '<span class="text-green-500">Probably free to use</span>';
+            const statusDiv = document.getElementById('copyrightStatus');
+            const embedDiv = document.getElementById('videoEmbed');
+            
+            if (result.error) {
+                statusDiv.innerHTML = `<div class="text-red-500 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg">${result.error}</div>`;
+                embedDiv.innerHTML = '';
+                return;
+            }
+            
+            const copyrightStatus = result.is_copyrighted ? 
+                '<span class="text-red-500 font-semibold">Probably Copyrighted</span>' : 
+                '<span class="text-green-500 font-semibold">Probably free to use</span>';
 
-        if (result.spotify_url) {
-            // Spotify result
-            statusDiv.innerHTML = `
-                <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-                    <div class="flex items-start space-x-4">
-                        ${result.albumImage ? `
-                            <img src="${result.albumImage}" alt="Album Cover" 
-                                 class="w-32 h-32 object-cover rounded shadow">
-                        ` : ''}
-                        <div class="flex-1 text-left">
-                            <p class="font-bold text-xl mb-1">${result.title}</p>
-                            <p class="text-gray-600 dark:text-gray-300 mb-1">Artist: ${result.artist}</p>
-                            <p class="text-gray-600 dark:text-gray-300 mb-1">Album: ${result.album}</p>
-                            <p class="text-gray-600 dark:text-gray-300 mb-2">Release Date: ${formatDate(result.releaseDate)}</p>
-                            <p class="mb-2">Status: ${copyrightStatus}</p>
-                            <a href="${result.spotify_url}" 
-                               class="text-blue-500 hover:underline block mb-2" 
-                               target="_blank">
-                                View on Spotify
-                            </a>
-                            ${result.preview_url ? `
-                                <audio controls class="w-full mt-2">
-                                    <source src="${result.preview_url}" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
+            if (result.spotify_url) {
+                // spotifyyyyyyyyyy result
+                statusDiv.innerHTML = `
+                    <div class="backdrop-blur-lg bg-white/80 dark:bg-gray-800/80 p-6 rounded-2xl shadow-lg border border-gray-200/20 dark:border-gray-700/20">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            ${result.albumImage ? `
+                                <img src="${result.albumImage}" alt="Album Cover" 
+                                     class="w-32 h-32 object-cover rounded-xl shadow-lg">
                             ` : ''}
+                            <div class="flex-1">
+                                <h3 class="font-bold text-2xl mb-2 text-gray-900 dark:text-white">${result.title}</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1">Artist: ${result.artist}</p>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1">Album: ${result.album}</p>
+                                <p class="text-gray-600 dark:text-gray-300 mb-2">Release Date: ${formatDate(result.releaseDate)}</p>
+                                <p class="mb-3">Status: ${copyrightStatus}</p>
+                                <a href="${result.spotify_url}" 
+                                   class="text-[#6062EF] hover:text-[#6062EF]/80 font-medium hover:underline block mb-3" 
+                                   target="_blank">
+                                    View on Spotify
+                                </a>
+                                ${result.preview_url ? `
+                                    <audio controls class="w-full mt-3">
+                                        <source src="${result.preview_url}" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                ` : ''}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-            embedDiv.innerHTML = '';
-        } else {
-            statusDiv.innerHTML = `
-                <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-                    <p class="font-bold">${result.title}</p>
-                    <p>Status: ${copyrightStatus}</p>
-                    ${result.license ? `<p>License: ${result.license}</p>` : ''}
-                    <p>URL: <a href="${result.url}" 
-                              class="text-blue-500 hover:underline" 
-                              target="_blank">
-                        View Original
-                    </a></p>
-                </div>
-            `;
-            
-            if (result.url && getYouTubeVideoId(result.url)) {
-                embedDiv.innerHTML = ` // i frame embed shit :D
-                    <iframe width="560" height="315" 
-                        src="https://www.youtube.com/embed/${getYouTubeVideoId(result.url)}" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
                 `;
+                embedDiv.innerHTML = '';
+            } else {
+                // yt result
+                statusDiv.innerHTML = `
+                    <div class="backdrop-blur-lg bg-white/80 dark:bg-gray-800/80 p-6 rounded-2xl shadow-lg border border-gray-200/20 dark:border-gray-700/20">
+                        <h3 class="font-bold text-xl mb-3 text-gray-900 dark:text-white">${result.title}</h3>
+                        <p class="mb-2">Status: ${copyrightStatus}</p>
+                        ${result.license ? `<p class="text-gray-600 dark:text-gray-300 mb-2">License: ${result.license}</p>` : ''}
+                        <a href="${result.url}" 
+                        class="text-[#6062EF] hover:text-[#6062EF]/80 font-medium hover:underline" 
+                        target="_blank">
+                            View Original
+                        </a>
+                    </div>
+                `;
+                
+                if (result.url && getYouTubeVideoId(result.url)) {
+                    embedDiv.innerHTML = `
+                        <div class="w-full max-w-2xl mx-auto mt-8">
+                            <div class="relative w-full pt-[56.25%]">
+                                <iframe 
+                                    class="absolute top-0 left-0 w-full h-full rounded-xl shadow-lg"
+                                    src="https://www.youtube.com/embed/${getYouTubeVideoId(result.url)}" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    `;
+                }
             }
         }
-    }
-    document.getElementById('checkCopyrightBtn').addEventListener('click', async () => {
-        const query = document.getElementById('copyrightQuery').value.trim();
-        if (!query) return;
-        // lol
-        let result;
-        if (query.includes('youtube.com') || query.includes('youtu.be')) {
-            result = await getYouTubeInfo(query);
-        } else {
-            result = await searchSpotifyInfo(query);
-        }
-        
-        displayResults(result);
-    });
+
+        window.onload = async () => {
+            try {
+                await initYouTubeAPI();
+                await getSpotifyToken();
+            } catch (error) {
+                console.error('Error initializing APIs:', error);
+            }
+        };
+
+        document.getElementById('checkCopyrightBtn').addEventListener('click', async () => {
+            const query = document.getElementById('copyrightQuery').value.trim();
+            if (!query) return;
+            
+            let result;
+            if (query.includes('youtube.com') || query.includes('youtu.be')) {
+                result = await getYouTubeInfo(query);
+            } else {
+                result = await searchSpotifyInfo(query);
+            }
+            
+            displayResults(result);
+        });
 </script>
 <script src="./scripts.js"></script>
 <footer class="bg-gradient-to-r from-left to-right text-white text-center pt-11.5 pb-11">
