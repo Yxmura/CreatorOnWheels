@@ -1,8 +1,8 @@
-// Ensure the script runs after the DOM is loaded
+// after dom loaded
 document.addEventListener('DOMContentLoaded', () => {
     const lightSwitch = document.getElementById('lightSwitch');
 
-    // Apply saved theme from localStorage
+    // apply from localStorage
     if (localStorage.getItem('dark-mode') === 'true') {
         document.documentElement.classList.add('dark');
         lightSwitch.checked = true;
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.classList.remove('dark');
     }
 
-    // Add event listener for theme toggling
+    // theme toglle funct.
     lightSwitch.addEventListener('change', () => {
         const isDark = lightSwitch.checked;
         document.documentElement.classList.toggle('dark', isDark);
