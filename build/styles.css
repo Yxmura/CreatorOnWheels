@@ -29,3 +29,19 @@ body {
                        var(--sb-track-color);
     }
   }
+
+  @keyframes cart {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(100vw);
+    }
+  }
+  
+  #cart.animate {
+    animation-name: cart;
+    animation-duration: 3s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
