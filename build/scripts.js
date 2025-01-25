@@ -44,8 +44,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-document.getElementById("close-banner").addEventListener("click", function (event) {
-    event.stopPropagation();  // Prevent clicking on the button itself from triggering the close event
-    this.closest("button").style.display = "none";  // Hide the button (banner)
-  });

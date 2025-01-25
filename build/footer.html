@@ -97,12 +97,12 @@
       </div>
     </div>
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const cart = document.getElementById("cart");
+    console.log('point 1 reached')
+    const cart = document.getElementById("cart");
 
-      cart.addEventListener("click", () => {
-        cart.classList.add("animate");
-      });
+    cart.addEventListener("click", () => {
+      console.log('cart clicked')
+      cart.classList.add("animate");
     });
     document.getElementById('footerText').innerHTML = "&copy;" + new Date().getFullYear() + " - Creator On Wheels. All rights reserved.";
   </script>
