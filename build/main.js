@@ -76,12 +76,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchContentsRecursively(path) {
         try {
-            const response = await fetch(`${githubApiUrl}${path}`);
+            // Append a timestamp to bypass cache
+            const timestamp = Date.now();
+            const url = `${githubApiUrl}${path}?_=${timestamp}`;
+            
+            const response = await fetch(url, {
+                headers: {
+                    'Cache-Control': 'no-cache', // to like prevent caching to get the latest version of the assets ykyk
+                    'Pragma': 'no-cache'
+                }
+            });
             if (!response.ok) throw new Error(`Failed to fetch contents from ${path}`);
             
             const contents = await response.json();
             let files = [];
-
+    
             for (const item of contents) {
                 if (item.type === "file") {
                     const presetType = path.includes('davinci') ? 'davinci' : 
@@ -99,13 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     files = files.concat(subFiles);
                 }
             }
-
+    
             return files;
         } catch (error) {
             console.error(`Error fetching contents from ${path}:`, error);
             return [];
         }
-    }
+    }    
 
     async function fetchPresets() {
         try {
