@@ -78,16 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Append a timestamp to bypass cache
             const timestamp = Date.now();
-            const url = `${githubApiUrl}${path}?_=${timestamp}`;
+            const url = `https://api.github.com/repos/Yxmura/assets/contents/${path}?_=${timestamp}`;
             
             const response = await fetch(url, {
                 headers: {
-                    'Cache-Control': 'no-cache', // to like prevent caching to get the latest version of the assets ykyk
-                    'Pragma': 'no-cache'
+                    'Accept': 'application/vnd.github.v3+json' // Recommended GitHub API header
                 }
             });
-            if (!response.ok) throw new Error(`Failed to fetch contents from ${path}`);
-            
+    
+            if (!response.ok) {
+                throw new Error(`Failed to fetch contents from ${path} (Status: ${response.status})`);
+            }
+    
             const contents = await response.json();
             let files = [];
     
@@ -114,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Error fetching contents from ${path}:`, error);
             return [];
         }
-    }    
+    }     
 
     async function fetchPresets() {
         try {

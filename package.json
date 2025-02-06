@@ -14,6 +14,7 @@
     "tailwindcss-motion": "^1.0.0"
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
     "node-waves": "^0.7.6"
   }
 }

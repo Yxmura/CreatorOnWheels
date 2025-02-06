@@ -224,15 +224,35 @@
     let spotifyAccessToken = null;
     let youtubeAPIReady = false;
 
+    async function fetchYouTubeApiKey() {
+        try {
+            const response = await fetch('/.netlify/functions/youtube-key');
+            const data = await response.json();
+            if (data.apiKey) {
+                YOUTUBE_API_KEY = data.apiKey;
+            } else {
+                throw new Error("YouTube API key is missing.");
+            }
+        } catch (error) {
+            console.error("Error fetching YouTube API key:", error);
+        }
+    }
+
     // init yt API
     async function initYouTubeAPI() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             gapi.load('client', async () => {
                 try {
+                    const apiKey = await fetchYouTubeApiKey();
+                    if (!apiKey) {
+                        throw new Error("YouTube API key is missing.");
+                    }
+
                     await gapi.client.init({
-                        apiKey: YOUTUBE_API_KEY,
+                        apiKey: apiKey,
                         discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
                     });
+
                     youtubeAPIReady = true;
                     resolve();
                 } catch (error) {
@@ -243,27 +263,30 @@
         });
     }
 
-    window.onload = async () => {
-        try {
-            await initYouTubeAPI();
-            await getSpotifyToken();
-        } catch (error) {
-            console.error('Error initializing APIs:', error);
-        }
-    };
-    
-    // spotify accesss token :D
+    // get spotify access
     async function getSpotifyToken() {
         try {
             const response = await fetch('/.netlify/functions/spotify');
             const data = await response.json();
             if (data.access_token) {
-            spotifyAccessToken = data.access_token;
+                spotifyAccessToken = data.access_token;
+            } else {
+                throw new Error("Spotify token is missing.");
             }
         } catch (error) {
             console.error('Error getting Spotify token:', error);
         }
     }
+
+    // init APIs on window load
+    window.onload = async () => {
+        try {
+            await Promise.all([initYouTubeAPI(), getSpotifyToken()]);
+            console.log("APIs initialized successfully.");
+        } catch (error) {
+            console.error("Error initializing APIs:", error);
+        }
+    };
     
     // da date to da string
     function formatDate(dateString) {
