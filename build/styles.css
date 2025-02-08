@@ -22,6 +22,9 @@ body {
     border-radius: 3px;
     
   }
+  .png {
+    padding-left: 40px;
+  }
   
   @supports not selector(::-webkit-scrollbar) {
     body {
