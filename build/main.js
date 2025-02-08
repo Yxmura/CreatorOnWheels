@@ -72,13 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const githubApiUrl = "https://api.github.com/repos/Coder-soft/assets/contents/";
+    const githubApiUrl = "https://api.github.com/repos/Coder-soft/assets/contents/contents/";
 
     async function fetchContentsRecursively(path) {
         try {
             // Append a timestamp to bypass cache
             const timestamp = Date.now();
-            const url = `https://api.github.com/repos/Yxmura/assets/contents/${path}?_=${timestamp}`;
+            const url = `https://api.github.com/repos/coder-soft/assets/contents/contents/${path}?_=${timestamp}`;
             
             const response = await fetch(url, {
                 headers: {
