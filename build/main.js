@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const githubApiUrl = "https://api.github.com/repos/Yxmura/assets/contents/";
+    const githubApiUrl = "https://api.github.com/repos/Coder-soft/assets/contents/";
 
     async function fetchContentsRecursively(path) {
         try {
